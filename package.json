@@ -1,6 +1,6 @@
 {
     "name": "@renyoo/node-red-dfrobot-lorawan-nodes",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "node red nodes for dfrobot-lorawan",
     "node-red": {
         "nodes": {
