@@ -1,0 +1,105 @@
+[
+    {
+        "id": "0e210821e6d956fe",
+        "type": "Single Node",
+        "z": "c30a48947005aee2",
+        "name": "接收指定devEUI的节点设备数据",
+        "devEUI": "",
+        "x": 310,
+        "y": 760,
+        "wires": [
+            [
+                "4df4252dc827de77"
+            ]
+        ]
+    },
+    {
+        "id": "4df4252dc827de77",
+        "type": "Packet Item",
+        "z": "c30a48947005aee2",
+        "name": "",
+        "checkbox1_RSSI": true,
+        "checkbox2_SNR": true,
+        "checkbox3_DR": true,
+        "checkbox4_devEUI": true,
+        "checkbox5_Data": true,
+        "checkbox6_deviceName": true,
+        "checkbox7_applicationID": true,
+        "checkbox8_devAddr": true,
+        "x": 580,
+        "y": 760,
+        "wires": [
+            [
+                "6c891f991eec8983",
+                "54dc47c3b22240f6"
+            ]
+        ]
+    },
+    {
+        "id": "6c891f991eec8983",
+        "type": "Decoder",
+        "z": "c30a48947005aee2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "type": "option1"
+            }
+        ],
+        "decodeText": "",
+        "outputs": 1,
+        "OutputMode": "option_Mode1",
+        "x": 770,
+        "y": 760,
+        "wires": [
+            [
+                "4478617408b7665f"
+            ]
+        ]
+    },
+    {
+        "id": "4478617408b7665f",
+        "type": "debug",
+        "z": "c30a48947005aee2",
+        "name": "解码规则：LWDTU-DF01",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 990,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "27116cc529fe64d3",
+        "type": "comment",
+        "z": "c30a48947005aee2",
+        "name": "Receives the device data of the node for which devEUI is specified, extracts the data, and decodes it",
+        "info": "",
+        "x": 560,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "54dc47c3b22240f6",
+        "type": "debug",
+        "z": "c30a48947005aee2",
+        "name": "提取的信息",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 730,
+        "y": 820,
+        "wires": []
+    }
+]

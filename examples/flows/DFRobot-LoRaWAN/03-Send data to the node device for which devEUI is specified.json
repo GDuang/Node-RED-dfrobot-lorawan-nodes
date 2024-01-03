@@ -1,0 +1,141 @@
+[
+    {
+        "id": "dfd97686e273e311",
+        "type": "LW Send",
+        "z": "765805023d49bff1",
+        "name": "指定devEUI的节点设备",
+        "devEUI": "",
+        "confirmed": "false",
+        "fport": "22",
+        "x": 670,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "d4d3af6626215e25",
+        "type": "inject",
+        "z": "765805023d49bff1",
+        "name": "\"ABCD\"",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ABCD",
+        "payloadType": "str",
+        "x": 350,
+        "y": 1060,
+        "wires": [
+            [
+                "dfd97686e273e311"
+            ]
+        ]
+    },
+    {
+        "id": "fe3cf5703ee27d15",
+        "type": "comment",
+        "z": "765805023d49bff1",
+        "name": "Send data to the node device for which devEUI is specified",
+        "info": "",
+        "x": 530,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "48e001c9f89f941a",
+        "type": "inject",
+        "z": "765805023d49bff1",
+        "name": "[72,101,108,108,111,32,87,111,114,108,100]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[72,101,108,108,111,32,87,111,114,108,100]",
+        "payloadType": "bin",
+        "x": 330,
+        "y": 1160,
+        "wires": [
+            [
+                "dfd97686e273e311"
+            ]
+        ]
+    },
+    {
+        "id": "834d1490725f7327",
+        "type": "comment",
+        "z": "765805023d49bff1",
+        "name": "Send string \"ABCD\"",
+        "info": "",
+        "x": 370,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "4647022bfe2f74ee",
+        "type": "comment",
+        "z": "765805023d49bff1",
+        "name": "Send buffer \"Hello World\"",
+        "info": "",
+        "x": 390,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "5d28d5b03fdebdd5",
+        "type": "inject",
+        "z": "765805023d49bff1",
+        "name": "[72,101,108,108,111,32,87,111,114,108,100]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[72,101,108,108,111,32,87,111,114,108,100]",
+        "payloadType": "json",
+        "x": 330,
+        "y": 1260,
+        "wires": [
+            [
+                "dfd97686e273e311"
+            ]
+        ]
+    },
+    {
+        "id": "dc5138f522fcf794",
+        "type": "comment",
+        "z": "765805023d49bff1",
+        "name": "Send Json array \"Hello World\"",
+        "info": "",
+        "x": 400,
+        "y": 1300,
+        "wires": []
+    }
+]

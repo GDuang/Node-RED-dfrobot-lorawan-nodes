@@ -1,0 +1,81 @@
+[
+    {
+        "id": "ccbf2c1053bb2445",
+        "type": "inject",
+        "z": "400cd0b1e5afdddf",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 220,
+        "wires": [
+            [
+                "836d1eed6e41772a"
+            ]
+        ]
+    },
+    {
+        "id": "836d1eed6e41772a",
+        "type": "Node List",
+        "z": "400cd0b1e5afdddf",
+        "name": "",
+        "x": 520,
+        "y": 220,
+        "wires": [
+            [
+                "16ae2f3b4ab48393"
+            ]
+        ]
+    },
+    {
+        "id": "16ae2f3b4ab48393",
+        "type": "debug",
+        "z": "400cd0b1e5afdddf",
+        "name": "device list",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 770,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "8042af8d3ccb2a94",
+        "type": "comment",
+        "z": "400cd0b1e5afdddf",
+        "name": "Given an arbitrary input",
+        "info": "",
+        "x": 310,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "72aac49a3b40450b",
+        "type": "comment",
+        "z": "400cd0b1e5afdddf",
+        "name": "Prints out the list of node devices",
+        "info": "",
+        "x": 760,
+        "y": 160,
+        "wires": []
+    }
+]
