@@ -1,5 +1,5 @@
 {
-    "name": "node-red-dfrobot-lorawan-nodes",
+    "name": "@lorawan/node-red-dfrobot-lorawan-nodes",
     "version": "1.0.0",
     "description": "node red nodes for dfrobot-lorawan",
     "node-red": {
@@ -15,11 +15,11 @@
             "dfrobot-singleNodeInfo": "./dfrobot-singleNodeInfo/single_nodeInfo.js"
         }
     },
-    "author": "gduang",
-    "license": "ISC",
+    "author": "GDuang",
+    "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://gitee.com/gduang/node-red-dfrobot-lorawan-nodes.git"
+        "url": "https://github.com/GDuang/Node-RED-dfrobot-lorawan-nodes.git"
     },
     "keywords": [
         "node-red",

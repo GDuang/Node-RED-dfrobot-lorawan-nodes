@@ -3,7 +3,7 @@
 支持在Node-Red中调用DFROBOT-LoRaWAN功能的节点
 
 ### 安装说明
-在Node-Red中，安装node-red-dfrobot-lorawan-nodes
+在Node-Red中，安装@lorawan/node-red-dfrobot-lorawan-nodes
 
 ### 节点介绍
 
@@ -18,4 +18,3 @@
 |  dfrobot-listenGatewayEvents       | 对网关中发生的事件进行监听
 |  dfrobot-musicPlayer               | 音乐播放器
 |  dfrobot-singleNodeInfo            | LoRaWAN接收指定节点设备的数据信息（单节点信息）
-|------------------------------------|----------------------------------|
