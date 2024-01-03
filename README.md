@@ -3,7 +3,7 @@
 支持在Node-Red中调用DFROBOT-LoRaWAN功能的节点
 
 ### 安装说明
-在Node-Red中，安装@lorawan/node-red-dfrobot-lorawan-nodes
+在Node-Red中，安装@renyoo/node-red-dfrobot-lorawan-nodes
 
 ### 节点介绍
 
