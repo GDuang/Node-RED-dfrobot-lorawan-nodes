@@ -28,7 +28,7 @@
     "keywords": [
         "node-red",
         "dfrobot",
-        "lorawan"
+        "lorawan",
 		"renyoo"
     ],
     "dependencies": {
