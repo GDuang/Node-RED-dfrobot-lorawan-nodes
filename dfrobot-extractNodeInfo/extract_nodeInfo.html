@@ -1,0 +1,125 @@
+
+<script type="text/html" data-help-name="Packet Item">
+    <p>对单一节点设备中的包信息进行提取</p>
+</script>
+
+
+
+
+<!-- 设置编辑器 -->
+<script type="text/html" data-template-name="Packet Item">
+    <!-- 设置第一行为Name -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <!-- 设置第二行为标签(提取条目) -->
+    <div class="form-row">
+        <label for="node-input-label"> 提取条目 </label>
+    </div>
+
+    <!-- 设置提取的条目 -->
+    <div>
+        <label for="node-input-checkbox1_RSSI">
+            <input type="checkbox" id="node-input-checkbox1_RSSI" name="checkbox1_RSSI">
+            RSSI
+        </label>
+    </div>
+    <div>
+        <label for="node-input-checkbox2_SNR">
+            <input type="checkbox" id="node-input-checkbox2_SNR" name="checkbox2_SNR">
+            SNR
+        </label>
+    </div>
+    <div>
+        <label for="node-input-checkbox3_DR">
+            <input type="checkbox" id="node-input-checkbox3_DR" name="checkbox3_DR">
+            DR
+        </label>
+    </div>
+    <div>
+        <label for="node-input-checkbox4_devEUI">
+            <input type="checkbox" id="node-input-checkbox4_devEUI" name="checkbox4_devEUI">
+            devEUI
+        </label>
+    </div>
+    <div>
+        <label for="node-input-checkbox5_Data">
+            <input type="checkbox" id="node-input-checkbox5_Data" name="checkbox5_Data">
+            fCnt
+        </label>
+    </div>
+    <div>
+        <label for="node-input-checkbox6_deviceName">
+            <input type="checkbox" id="node-input-checkbox6_deviceName" name="checkbox6_deviceName">
+            deviceName
+        </label>
+    </div>
+    <div>
+        <label for="node-input-checkbox7_applicationID">
+            <input type="checkbox" id="node-input-checkbox7_applicationID" name="checkbox7_applicationID">
+            applicationID
+        </label>
+    </div>
+    <div>
+        <label for="node-input-checkbox8_devAddr">
+            <input type="checkbox" id="node-input-checkbox8_devAddr" name="checkbox8_devAddr">
+            devAddr
+        </label>
+    </div>
+</script>
+
+
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('Packet Item',{  
+        category: 'DFROBOT-LoRaWAN',
+        color: '#e5e510',
+        defaults: {
+            name: { value: "" }, // 对应于节点名称的配置
+            checkbox1_RSSI: { value: false, required: true }, // 对应于RSSI复选框的配置
+            checkbox2_SNR: { value: false, required: true }, // 对应于SNR复选框的配置
+            checkbox3_DR: { value: false, required: true }, // 对应于DR复选框的配置
+            checkbox4_devEUI: { value: false, required: true }, // 对应于UpCnt复选框的配置
+            checkbox5_Data: { value: false, required: true }, // 对应于Data复选框的配置
+            checkbox6_deviceName: { value: false, required: true },
+            checkbox7_applicationID: { value: false, required: true } ,
+            checkbox8_devAddr: { value: false, required: true } 
+        },
+        inputs:1,
+        outputs:1,  
+        icon: "split.svg",
+        align: "left",
+        
+        label: function() {
+            return this.name||"信息提取";
+        },
+
+        oneditprepare: function() {
+            // 使用当前节点配置设置复选框的状态
+            $("#node-input-checkbox1_RSSI").prop('checked', this.checkbox1_RSSI);
+            $("#node-input-checkbox2_SNR").prop('checked', this.checkbox2_SNR);
+            $("#node-input-checkbox3_DR").prop('checked', this.checkbox3_DR);
+            $("#node-input-checkbox4_devEUI").prop('checked', this.checkbox4_devEUI);
+            $("#node-input-checkbox5_Data").prop('checked', this.checkbox5_Data);
+            $("#node-input-checkbox6_deviceName").prop('checked', this.checkbox6_deviceName);
+            $("#node-input-checkbox7_applicationID").prop('checked', this.checkbox7_applicationID);
+            $("#node-input-checkbox8_devAddr").prop('checked', this.checkbox8_devAddr);
+        },
+
+        oneditsave: function() {
+
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+    

@@ -1,0 +1,289 @@
+
+<script type="text/html" data-help-name="Decoder">
+    <p>对节点设备信息中的数据进行解码, 注意: 自定义规则的主逻辑函数应放在function Decode(data) {}</p>
+</script>
+
+
+
+
+<!-- 设置编辑器 -->
+<script type="text/html" data-template-name="Decoder">
+    <!-- 设置第一行为Name -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+    <!-- 设置第二行为负载属性 -->
+    <div class="form-row">
+        <label for="node-input-property"><i class="fa fa-ellipsis-h"></i> <span data-i18n="switch.label.property"></span></label>
+        <input type="text" id="node-input-property" style="width: calc(100% - 105px)"/>
+        <input type="hidden" id="node-input-outputs"/>
+    </div>
+
+    <!-- 设置第三行为标签(分组条件) -->
+    <div class="form-row">
+        <label for="node-input-label"> 解码规则 </label>
+    </div>
+    <!-- 设置第四行为容器 -->
+    <div class="form-row node-input-rule-container-row">
+        <ol id="node-input-rule-container"></ol>
+    </div>
+
+    <style>
+        .node-input-custom-rule-row {
+            display: none;
+        }
+    </style>
+
+   <!-- 给相关的div添加类名node-input-custom-rule-row以便于控制显示 -->
+   <div class="form-row node-input-custom-rule-row">
+        <label for="node-input-decodeText"><i class="fa fa-tag"></i> 自定义规则</label>
+        <div style="height: 250px; min-height:150px; width: 100%;" class="node-text-editor" id="node-input-decode"></div>
+    </div>  
+
+    <div class="form-row">
+        <input type="text" id="node-input-selectOutputMode" style="width: calc(100% - 105px);">
+    </div>
+
+
+
+</script>
+
+
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('Decoder',{  
+        category: 'DFROBOT-LoRaWAN',
+        color: '#e5e510',
+        defaults: {
+            name: {value:""},
+            property: {value:"payload", required:true,
+                       label:RED._("node-red:common.label.payload"),
+                       validate: RED.validators.typedInput("propertyType", false)},
+            propertyType: { value:"msg" },
+
+            // rules: 
+            //     value: {}
+            // },
+            rules: [],
+
+            decodeText: { value: "" },
+            outputs: {value:1},
+            OutputMode: {value: "option_Mode1"}
+        },
+        inputs:1,
+        outputs:1,  // 初始输出数量为1，稍后将动态更改
+        // outputLabels: ["编码数据","其他数据"],
+        icon: "font-awesome/fa-keyboard-o",
+        align: "left",
+        
+        label: function() {
+            return this.name||"解码器";
+        },
+
+        oneditprepare: function() {
+            var node = this;
+
+
+
+
+            $("#node-input-property").typedInput({default:this.propertyType||'msg',types:['msg']});
+            var outputCount = $("#node-input-outputs").val("{}");
+
+            $("#node-input-property").typedInput({
+                default: this.propertyType || 'msg',
+                types: ['msg']
+            });
+
+            $("#node-input-selectOutputMode").typedInput({
+                types: [
+                    {
+                        value: "selectOutputMode",
+                        options: [
+                                    { value: "option_Mode1", label: "全选所有规则"},
+                                    { value: "option_Mode2", label: "接受第—条匹配信息后停止"},
+                                 ]
+                    }
+                ],
+            });
+
+
+            var outputCount = $("#node-input-outputs");
+
+            // 根据现有规则初始化输出计数
+            var initialOutputs = node.rules ? node.rules.length : 1;
+            outputCount.val(initialOutputs);
+
+            $("#node-input-rule-container").css('min-height', '350px').css('min-width', '400px').editableList({
+                addItem: function(container, index, opt) {
+                    // 在容器中创建子容器————输出支路对象
+                    var row = $('<div/>').addClass('form-row').appendTo(container);
+                    var selectDiv = $('<div/>').addClass('form-row').appendTo(row);
+                    var select = $('<select/>', {
+                        class: 'node-input-rule-type',
+                        id: 'select' + index,
+                        html: 
+                            "<option value='option1' selected>LWDTU-DF01</option>" +
+                            "<option value='option2'>String&Buffer</option>" +
+                            "<option value='option3'>自定义规则</option>"
+                    }).appendTo(selectDiv);
+
+                    // 如果提供了初始数据，恢复下拉选项和文本框
+                    if (opt) {
+                        select.val(opt.type || "");
+                    }
+
+                    // 创建一个输出标识符(箭头和数字)
+                    var outputId = $('<span/>').addClass('node-input-rule-output-id').text(' → ' + (index + 1)).appendTo(selectDiv);
+
+                    // 更新输出计数
+                    updateOutputs();
+                },
+                removable: true,
+                sortable: true,
+                // 在重新排序项目时，需要使用以下代码来更新输出标识符
+                sortItems: function(items) {
+                    updateOutputIdentifiers();
+                },
+                // 删除选项时——>同时删除输出端口
+                removeItem: function(opt) {
+                    updateOutputs();
+                    updateOutputIdentifiers();
+
+                    // 删除选项时，判断是否为删除的option3，如是就删除自定义脚本框
+                    // 获取所有规则的当前状态
+                    var currentRules = $("#node-input-rule-container").editableList('items').map(function(i, el) {
+                        return { type: $(el).find('.node-input-rule-type').val() };
+                    }).get();
+                    // 更新显示状态
+                    updateCustomRuleDisplay(currentRules);
+                }
+
+            }).on("change", ".node-input-rule-type", function() {
+                // 获取所有规则的当前状态
+                var currentRules = $("#node-input-rule-container").editableList('items').map(function(i, el) {
+                    return { type: $(el).find('.node-input-rule-type').val() };
+                }).get();
+                console.log("currentRules = " + JSON.stringify(currentRules))
+                // 更新显示状态
+                updateCustomRuleDisplay(currentRules);
+            });
+
+            // 函数更新输出的数量
+            function updateOutputs() {
+                // 调用editableList('items')方法来获取该元素上可编辑列表的所有项。这些项将被赋值给rules变量
+                var rules = $("#node-input-rule-container").editableList('items');
+                // console.log(rules.length)
+                outputCount.val(rules.length);
+            }
+
+
+            // 函数更新输出标识符
+            function updateOutputIdentifiers() {
+                $("#node-input-rule-container").editableList('items').each(function(i, el) {
+                    $(el).find('.node-input-rule-output-id').text(' → ' + (i + 1));
+                });
+            }
+
+
+
+            // 恢复已有的规则数据
+            this.editor = RED.editor.createEditor({
+                id: 'node-input-decode',
+                mode: 'ace/mode/javascript',
+                value: this.decodeText
+            });
+
+            
+            if (node.rules) {
+                // 遍历所有的规则，将上次设置的规则恢复
+                node.rules.forEach(function(rule) {
+                    $("#node-input-rule-container").editableList('addItem', rule);
+                    // console.log("rules0 = " + JSON.stringify(node.rules))
+                });
+                // console.log("rules1 = " + JSON.stringify(node.rules))
+            }
+
+            $("#node-input-selectOutputMode").typedInput("value", node.OutputMode);
+
+            // console.log("node.OutputMode = " + node.OutputMode)
+
+        // ------------------------------------------------------------------
+        // 解码规则中选择了自定义规则才会显示自定义规则的脚本框
+            // 初始化自定义规则和输出模式输入框的显示状态
+            updateCustomRuleDisplay(node.rules);
+
+            // 定义一个函数来更新自定义规则和输出模式输入框的显示状态
+            function updateCustomRuleDisplay(rules) {
+                // 检查rules数组中是否有对象的type属性为"option3"
+                var showCustomRule = rules.some(function(rule) {
+                    return rule.type === "option3";
+                });
+
+                // 根据检查结果显示或隐藏自定义规则和输出模式输入框
+                if(showCustomRule) {
+                    $(".node-input-custom-rule-row").show();
+                } else {
+                    $(".node-input-custom-rule-row").hide();
+                }
+            }
+
+            // // 在下拉框选择变化时也更新显示状态
+            // $("#node-input-rule-container").on("change", ".node-input-rule-type", function() {
+            //     // 获取所有规则的当前状态
+            //     var currentRules = $("#node-input-rule-container").editableList('items').map(function(i, el) {
+            //         return { type: $(el).find('.node-input-rule-type').val() };
+            //     }).get();
+            //     console.log("currentRules = " + JSON.stringify(currentRules))
+            //     // 更新显示状态
+            //     updateCustomRuleDisplay(currentRules);
+            // });
+
+
+        },
+
+
+
+
+        oneditsave: function () {
+            var node = this;
+            node.rules = []; // 准备存储规则数据的数组
+
+            // 保存元素的值到节点的配置中
+            
+            node.OutputMode = $("#node-input-selectOutputMode").val();
+            // console.log("node.OutputMode = " + node.OutputMode)
+
+            // 遍历每个规则项，保存下拉选项和文本框的数据
+            $("#node-input-rule-container").children().each(function() {
+                // 找到所有的下拉选项框并保存
+                var type = $(this).find('.node-input-rule-type').val();
+
+                // 将下拉选项框+文本框 打包为对象 保存在rule数组的元素中
+                node.rules.push({ type: type});
+            });
+
+            // console.log("rules2 = " + JSON.stringify(node.rules))
+
+
+            this.decodeText = this.editor.getValue();
+            this.editor.destroy();
+            delete this.editor;
+        },
+        oneditcancel: function () {
+            this.editor.destroy();
+            delete this.editor;
+        },
+    });
+</script>
+
+
+
+
+
+
+
+
+
+    

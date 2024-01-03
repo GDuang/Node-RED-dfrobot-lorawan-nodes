@@ -1,0 +1,69 @@
+<script type="text/html" data-help-name="Single Node">
+    <p>LoRaWAN接收指定节点设备的数据信息（单节点信息）</p>
+</script>
+
+<!-- 设置编辑器 -->
+<script type="text/html" data-template-name="Single Node">
+    <!-- 设置第一行为Name -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <!-- 指定节点设备 -->
+    <div class="form-row">
+        <label for="node-input-singleDev_type"><i class="icon-tag"></i> 指定节点设备 </label>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> devEUI </label>
+        <input type="text" id="node-input-singleDevText" placeholder="devEUI">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('Single Node',{  
+        category: 'DFROBOT-LoRaWAN',
+        color: '#e5e510',
+        // 存放节点的可编辑属性
+        defaults: {
+            name: { value: "" }, // 对应于节点名称的配置
+            devEUI: { value: "", required: true, validate: RED.validators.regex(/^[A-Za-z0-9]{16}$/) }
+        },
+        inputs:0,
+        outputs:1,  
+        icon: "bridge.svg",
+        align: "left",
+        
+        label: function() {
+            return this.name||"单节点信息";
+        },
+
+        oneditprepare: function() {
+            var node = this;
+            var inputName = $("#node-input-name");
+            var inputSingleDevText = $("#node-input-singleDevText");
+
+            // 恢复已有的规则数据
+            inputName.val(node.name);
+            inputSingleDevText.val(node.devEUI);
+        },
+
+        oneditsave: function() {
+            var node = this;
+            var inputName = $("#node-input-name");
+            var inputSingleDevText = $("#node-input-singleDevText");
+
+            // 保存元素的值到节点的配置中
+            node.name = inputName.val();
+            node.devEUI = inputSingleDevText.val();
+        },
+    });
+</script>
+
+
+
+
+
+
+
+    

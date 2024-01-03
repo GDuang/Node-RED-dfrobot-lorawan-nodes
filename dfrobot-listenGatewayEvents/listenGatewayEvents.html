@@ -1,0 +1,170 @@
+
+<script type="text/html" data-help-name="GW Events">
+    <p>对网关中发生的事件进行监听</p>
+</script>
+
+
+
+
+<!-- 设置编辑器 -->
+<script type="text/html" data-template-name="GW Events">
+    <!-- 设置第一行为Name -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <!-- 设置第二行为标签(提取条目) -->
+    <div class="form-row">
+        <label for="node-input-label"> 监听事件Types </label>
+    </div>
+
+    <!-- 设置第三行为容器 其中ol表示有序列表 -->
+    <div class="form-row">
+        <input type="checkbox" id="node-input-checkbox1" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox1" style="display: inline-block; width: auto; vertical-align: top;">Power On</label>
+    </div>
+
+    <div class="form-row">
+        <input type="checkbox" id="node-input-checkbox2" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox2" style="display: inline-block; width: auto; vertical-align: top;">Power Off</label>
+    </div>
+
+    <div class="form-row">
+        <input type="checkbox" id="node-input-checkbox3" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox3" style="display: inline-block; width: auto; vertical-align: top;">WAN Up</label>
+    </div>
+
+    <div class="form-row">
+        <input type="checkbox" id="node-input-checkbox4" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox4" style="display: inline-block; width: auto; vertical-align: top;">WAN Down</label>
+    </div>
+
+    <div class="form-row">
+        <input type="checkbox" id="node-input-checkbox5" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox5" style="display: inline-block; width: auto; vertical-align: top;">Cellular Up</label>
+    </div>
+
+    <div class="form-row">
+        <input type="checkbox" id="node-input-checkbox6" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox6" style="display: inline-block; width: auto; vertical-align: top;">Cellular Up</label>
+    </div>
+
+    <div class="form-row">
+        <input type="checkbox" id="node-input-checkbox7" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox7" style="display: inline-block; width: auto; vertical-align: top;">VPN Up</label>
+    </div>
+
+    <div class="form-row">
+        <input type="checkbox" id="node-input-checkbox8" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox8" style="display: inline-block; width: auto; vertical-align: top;">VPN Down</label>
+    </div>
+</script>
+
+
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('GW Events',{  
+        category: 'DFROBOT-LoRaWAN',
+        color: '#e5e510',
+        defaults: {
+            name: {value:""},
+            checkbox1: {value: false},
+            checkbox2: {value: false},
+            checkbox3: {value: false},
+            checkbox4: {value: false},
+            checkbox5: {value: false},
+            checkbox6: {value: false},
+            checkbox7: {value: false},
+            checkbox8: {value: false},
+            rules: {
+
+            },
+
+        },
+        inputs:0,
+        outputs:1,  // 初始输出数量为1
+        // outputLabels: ["stdout","stderr","rc"],
+        icon: "bridge.svg",
+        align: "left",
+        
+        label: function() {
+            return this.name||"监听网关事件";
+        },
+
+        // 打开编辑对话框时运行的代码
+        oneditprepare: function() {
+            // 用于在打开编辑界面时设置复选框的初始状态
+            $("#node-input-checkbox1").prop('checked', this.checkbox1);
+            $("#node-input-checkbox2").prop('checked', this.checkbox2);
+            $("#node-input-checkbox3").prop('checked', this.checkbox3);
+            $("#node-input-checkbox4").prop('checked', this.checkbox4);
+            $("#node-input-checkbox5").prop('checked', this.checkbox5);
+            $("#node-input-checkbox6").prop('checked', this.checkbox6);
+            $("#node-input-checkbox7").prop('checked', this.checkbox7);
+            $("#node-input-checkbox8").prop('checked', this.checkbox8);
+
+            function updateOutputs() {
+                var count = 0;
+                if ($("#node-input-checkbox1").is(":checked")) count++;
+                if ($("#node-input-checkbox2").is(":checked")) count++;
+                if ($("#node-input-checkbox3").is(":checked")) count++;
+                if ($("#node-input-checkbox4").is(":checked")) count++;
+                if ($("#node-input-checkbox5").is(":checked")) count++;
+                if ($("#node-input-checkbox6").is(":checked")) count++;
+                if ($("#node-input-checkbox7").is(":checked")) count++;
+                if ($("#node-input-checkbox8").is(":checked")) count++;
+
+                // 更新输出端口数量
+                $("#outputs").spinner('value', count);
+            }
+
+            $("#node-input-checkbox1").on("change", updateOutputs);
+            $("#node-input-checkbox2").on("change", updateOutputs);
+            $("#node-input-checkbox3").on("change", updateOutputs);
+            $("#node-input-checkbox4").on("change", updateOutputs);
+            $("#node-input-checkbox5").on("change", updateOutputs);
+            $("#node-input-checkbox6").on("change", updateOutputs);
+            $("#node-input-checkbox7").on("change", updateOutputs);
+            $("#node-input-checkbox8").on("change", updateOutputs);
+
+
+            updateOutputs(); // 初始化时更新一次输出端口数量
+        },
+
+        oneditsave: function() {
+            // 用于在保存编辑时获取复选框的状态
+            this.checkbox1 = $("#node-input-checkbox1").is(':checked');
+            this.checkbox2 = $("#node-input-checkbox2").is(':checked');
+            this.checkbox3 = $("#node-input-checkbox3").is(':checked');
+            this.checkbox4 = $("#node-input-checkbox4").is(':checked');
+            this.checkbox5 = $("#node-input-checkbox5").is(':checked');
+            this.checkbox6 = $("#node-input-checkbox6").is(':checked');
+            this.checkbox7 = $("#node-input-checkbox7").is(':checked');
+            this.checkbox8 = $("#node-input-checkbox8").is(':checked');
+
+            var count = 0;
+            if ($("#node-input-checkbox1").is(":checked")) count++;
+            if ($("#node-input-checkbox2").is(":checked")) count++;
+            if ($("#node-input-checkbox3").is(":checked")) count++;
+            if ($("#node-input-checkbox4").is(":checked")) count++;
+            if ($("#node-input-checkbox5").is(":checked")) count++;
+            if ($("#node-input-checkbox6").is(":checked")) count++;
+            if ($("#node-input-checkbox7").is(":checked")) count++;
+            if ($("#node-input-checkbox8").is(":checked")) count++;
+
+            this.outputs = count; // 保存勾选选项总数到输出端口数量
+        }
+
+    });
+</script>
+
+
+
+
+
+
+
+
+    

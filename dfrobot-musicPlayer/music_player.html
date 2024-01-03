@@ -1,0 +1,142 @@
+<script type="text/html" data-help-name="MusicPlayer">
+    <p>音乐播放器</p>
+</script>
+
+
+
+<script type="text/html" data-template-name="MusicPlayer">
+    <!-- 设置第一行为Name -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-Built_in_files"><i class="fa fa-file"></i> 内置文件 </label>
+        <input type="text" id="node-input-Built_in_files" style="width: 450px;">
+    </div>
+    <!-- <div class="form-row">
+        <label for="node-input-Custom_files"><i class="fa fa-file"></i> 用户文件 </label>
+        <input type="text" id="node-input-Custom_files" style="width: 250px;">
+        <input type="file" id="getfile" style="display: none;" />
+        <button type="button" class="red-ui-button" id="node-input-select-file-button"> 选择文件 </button>
+    </div> -->
+
+</script>
+
+
+
+<script src="resources/node-red-music_player/mp3.js" ></script>
+<script type="text/javascript">
+
+
+    RED.nodes.registerType('MusicPlayer',{
+        category: 'DFROBOT-LoRaWAN',
+        color: '#e5e510',
+        defaults: {
+            name: {value: ""},
+            
+            _Built_in_file_opts: {value: ""},
+
+            // _file_index: {value: 0},
+            // _custom_file_opts: {value: []},
+            // soundfile: {value:"/gw/sound/Sound1.mp3", required:true}
+            // soundfile: {value:"C:\\Users\\24186\\Desktop\\Sound1.mp3", required:true}
+            
+        },
+        inputs:1,
+        outputs:0,
+        icon: "font-awesome/fa-headphones",
+        align: "right",
+        label: function() {
+            return this.name||"音乐播放器";
+        },
+
+
+        oneditprepare: function() {
+
+            var node = this;
+            // var options_custom = node._custom_file_opts
+            var options_Built_in = node._Built_in_file_opts
+
+
+            // 国际化多语种
+            let opts = mp3.map(v=>(
+                {
+                    label: this._(v.traid),
+                    value: v.path,
+                }
+            ))
+
+            let default_V = opts[0].value;
+
+            if (node._Built_in_file_opts === "" || node._Built_in_file_opts === undefined) {
+                node._Built_in_file_opts.value = default_V
+            }
+
+
+            $("#node-input-Built_in_files").typedInput({
+                types: [
+                    {
+                        value: "_Built_in_file_opts",
+                        options: opts
+                    }
+                ],
+            });
+
+
+
+
+
+
+            // 以下代码为用户自定义文件设计
+            // $("#node-input-Custom_files").typedInput({
+            //     types: [
+            //         {
+            //             value: "Custom_files",
+            //             options: options_custom
+            //         }
+            //     ],
+            // });
+
+            // $("#getfile").on("change", (ev)=>{
+            //     if(event.target.files.length > 0){
+            //         var file = event.target.files[0];
+            //         options_custom.push({label: file.name, value: `Option${node._file_index}`})
+
+            //         $("#node-input-Custom_files").typedInput('types', [
+            //             {
+            //                 options: options_custom
+            //             }
+            //         ]);
+
+
+            //         node._file_index += 1
+            //     }
+            // })
+
+            //  // 设置按钮点击事件
+            // $("#node-input-select-file-button").click(function(e) {
+            //     e.preventDefault();
+            //     $("#getfile").click()
+            // });
+
+
+
+            // 恢复已有的规则数据
+            $("#node-input-name").val(node.name);
+            $("#node-input-Built_in_files").typedInput("value", node._Built_in_file_opts);  // 恢复下拉选项框的选项
+            // console.log("_Built_in_file_opts = " + node._Built_in_file_opts)
+
+        },
+
+        oneditsave: function() {
+            var node = this;
+
+            // 保存元素的值到节点的配置中
+            node.name = $("#node-input-name").val();
+            node._Built_in_file_opts = $("#node-input-Built_in_files").val();
+
+        },
+    });
+</script>

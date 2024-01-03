@@ -1,0 +1,239 @@
+
+<script type="text/html" data-help-name="Group">
+    <p>对节点设备进行分组</p>
+</script>
+
+
+
+
+<!-- 设置编辑器 -->
+<script type="text/html" data-template-name="Group">
+    <!-- 设置第一行为Name -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+    <!-- 设置第二行为负载属性 -->
+    <div class="form-row">
+        <label for="node-input-property"><i class="fa fa-ellipsis-h"></i> <span data-i18n="switch.label.property"></span></label>
+        <input type="text" id="node-input-property" style="width: calc(100% - 105px)"/>
+        <input type="hidden" id="node-input-outputs"/>
+    </div>
+    <!-- 设置第三行为标签(分组条件) -->
+    <div class="form-row">
+        <label for="node-input-label"> 分组条件 </label>
+    </div>
+    <!-- 设置第四行为容器 -->
+    <div class="form-row node-input-rule-container-row">
+        <ol id="node-input-rule-container"></ol>
+    </div>
+    <div class="form-row">
+        <input type="text" id="node-input-selectOutputMode" style="width: calc(100% - 105px);">
+    </div>
+</script>
+
+
+
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('Group',{  
+        category: 'DFROBOT-LoRaWAN',
+        color: '#e5e510',
+        defaults: {
+            name: {value:""},
+            property: {value:"payload", required:true,
+                       label:RED._("node-red:common.label.payload"),
+                       validate: RED.validators.typedInput("propertyType", false)},
+            propertyType: { value:"msg" },
+            rules: {
+                value: {}
+            },
+            outputs: {value:1},
+            OutputMode: {value: "option_Mode1"}
+        },
+        inputs:1,
+        outputs:1,  // 初始输出数量为1，稍后将动态更改
+        icon: "switch.svg",
+        align: "left",
+        label: function() {
+            return this.name||"分筛节点设备";
+        },
+        oneditprepare: function() {
+            var node = this;
+
+            $("#node-input-property").typedInput({
+                default: this.propertyType || 'msg',
+                types: ['msg']
+            });
+
+            
+            $("#node-input-selectOutputMode").typedInput({
+                types: [
+                    {
+                        value: "selectOutputMode",
+                        options: [
+                                    { value: "option_Mode1", label: "全选所有规则"},
+                                    { value: "option_Mode2", label: "接受第—条匹配信息后停止"},
+                                 ]
+                    }
+                ],
+            });
+
+
+            var outputCount = $("#node-input-outputs");
+
+            // 根据现有规则初始化输出计数
+            var initialOutputs = node.rules ? node.rules.length : 1;
+            outputCount.val(initialOutputs);
+
+            $("#node-input-rule-container").css('min-height', '450px').css('min-width', '450px').editableList({
+                addItem: function(container, index, opt) {
+                    // 在容器中创建子容器————输出支路对象
+                    var row = $('<div/>').addClass('form-row').appendTo(container);
+                    var selectDiv = $('<div/>').addClass('form-row').appendTo(row);
+                    var select = $('<select/>', {
+                        class: 'node-input-rule-type',
+                        id: 'select' + index,
+                        html: 
+                            "<option value='devEUI' selected>devEUI</option>" +
+                            "<option value='deviceName'>deviceName</option>" +
+                            "<option value='applicationID'>applicationID</option>" +
+                            "<option value='devAddr'>devAddr</option>"
+                    }).appendTo(selectDiv);
+
+
+               
+                    // var addButtonDiv = $('<div/>').addClass('form-row').appendTo(row);
+                    var addButton = $('<button/>', { text: '+', 'class': 'node-input-rule-add' }).appendTo(selectDiv);
+                    addButton.on('click', function(e) {
+                        e.preventDefault();
+                        // 在当前子容器中添加新的文本框以及删除按钮
+                        var textboxRow = $('<div/>').addClass('form-row').appendTo(container);
+               
+                        $('<input/>', {
+                            type: 'text',
+                            id: 'input' + index, // 给每个文本框一个基于索引的唯一ID
+                            class: 'node-input-rule-property' // 也可以给所有文本框一个相同的类名以进行分组选择
+                        }).appendTo(textboxRow);
+
+                        var removeButton = $('<button/>', { text: '-', 'class': 'node-input-rule-remove' }).appendTo(textboxRow);
+                        removeButton.on('click', function(e) {
+                            e.preventDefault();
+                            textboxRow.remove();
+                        });
+
+                        sub_index += 1
+                    });
+                    
+                    // 如果提供了初始数据，恢复下拉选项和文本框
+                    if (opt) {
+                        select.val(opt.type || "");
+                        if (opt.properties) {
+                            opt.properties.forEach(function(property) {
+                                var textboxRow = $('<div/>').addClass('form-row').appendTo(container);
+                                $('<input/>', {
+                                    'type': 'text',
+                                    'class': 'node-input-rule-property',
+                                    'value': property
+                                }).appendTo(textboxRow);
+                                var removeButton = $('<button/>', { text: '-', 'class': 'node-input-rule-remove' }).appendTo(textboxRow);
+                                removeButton.on('click', function(e) {
+                                    e.preventDefault();
+                                    textboxRow.remove();
+                                });
+                            });
+                        }
+                    }
+
+                    
+                    // 创建一个输出标识符(箭头和数字)
+                    var outputId = $('<span/>').addClass('node-input-rule-output-id').text(' → ' + (index + 1)).appendTo(selectDiv);
+
+                    // 更新输出计数
+                    updateOutputs();
+                },
+                removable: true,
+                sortable: true,
+                // 在重新排序项目时，需要使用以下代码来更新输出标识符
+                sortItems: function(items) {
+                    updateOutputIdentifiers();
+                },
+                // 删除选项时——>同时删除输出端口
+                removeItem: function(opt) {
+                    updateOutputs();
+                    updateOutputIdentifiers();
+                }
+            });
+
+            // 函数更新输出的数量
+            function updateOutputs() {
+                // 调用editableList('items')方法来获取该元素上可编辑列表的所有项。这些项将被赋值给rules变量
+                var rules = $("#node-input-rule-container").editableList('items');
+                outputCount.val(rules.length);
+            }
+
+
+            // 函数更新输出标识符
+            function updateOutputIdentifiers() {
+                $("#node-input-rule-container").editableList('items').each(function(i, el) {
+                    $(el).find('.node-input-rule-output-id').text(' → ' + (i + 1));
+                });
+            }
+
+            // 恢复已有的规则数据
+            if (node.rules) {
+                // 遍历所有的规则，将上次设置的规则恢复
+                node.rules.forEach(function(rule) {
+                    $("#node-input-rule-container").editableList('addItem', rule);
+                });
+            }
+
+            $("#node-input-selectOutputMode").typedInput("value", node.OutputMode);
+            
+        },
+
+        oneditsave: function() {
+            var node = this;
+            node.rules = []; // 准备存储规则数据的数组
+
+            node.OutputMode = $("#node-input-selectOutputMode").val();
+
+            // 遍历每个规则项，保存下拉选项和文本框的数据
+            $("#node-input-rule-container").children().each(function() {
+                // 找到所有的下拉选项框并保存
+                var type = $(this).find('.node-input-rule-type').val();
+                var properties = [];
+                // 找到所有的文本框并保存
+                $(this).find('.node-input-rule-property').each(function() {
+                    properties.push($(this).val());
+                });
+                // 将下拉选项框+文本框 打包为对象 保存在rule数组的元素中
+                node.rules.push({ type: type, properties: properties });
+            });
+        },
+    });
+</script>
+
+<!-- 
+<style>
+    .form-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+    .form-row > div {
+        margin-right: 10px;
+    }
+    .node-input-rule-property {
+        display: block;
+        width: 100%;
+        margin-top: 5px;
+    }
+</style> -->
+
+
+
+
+
+

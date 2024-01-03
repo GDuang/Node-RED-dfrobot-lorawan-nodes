@@ -1,0 +1,33 @@
+{
+    "name": "node-red-dfrobot-lorawan-nodes",
+    "version": "1.0.0",
+    "description": "node red nodes for dfrobot-lorawan",
+    "node-red": {
+        "nodes": {
+            "dfrobot-decoder": "./dfrobot-decoder/decoder.js",
+            "dfrobot-extractNodeInfo": "./dfrobot-extractNodeInfo/extract_nodeInfo.js",
+            "dfrobot-gatewayLoRaWAN_Receive": "./dfrobot-gatewayLoRaWAN_Receive/lorawan_receive.js",
+            "dfrobot-gatewayLoRaWAN_Send": "./dfrobot-gatewayLoRaWAN_Send/lorawan_send.js",
+            "dfrobot-getNodesList": "./dfrobot-getNodesList/get_nodesList.js",
+            "dfrobot-groupFilter": "./dfrobot-groupFilter/group_filter.js",
+            "dfrobot-listenGatewayEvents": "./dfrobot-listenGatewayEvents/listenGatewayEvents.js",
+            "dfrobot-musicPlayer": "./dfrobot-musicPlayer/music_player.js",
+            "dfrobot-singleNodeInfo": "./dfrobot-singleNodeInfo/single_nodeInfo.js"
+        }
+    },
+    "author": "gduang",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://gitee.com/gduang/node-red-dfrobot-lorawan-nodes.git"
+    },
+    "keywords": [
+        "node-red",
+        "dfrobot",
+        "lorawan"
+    ],
+    "dependencies": {
+        "mqtt": "^4.2.8",
+        "request": "^2.88.2"
+    }
+}

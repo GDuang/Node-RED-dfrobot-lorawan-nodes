@@ -1,0 +1,96 @@
+<script type="text/html" data-help-name="LW Send">
+    <p>网关LoRaWAN给指定节点发送数据</p>
+</script>
+
+
+
+<script type="text/html" data-template-name="LW Send">
+    <!-- 设置第一行为Name -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-deveui"><i class="fa fa-globe"></i> deveui</label>
+        <input type="text" id="node-input-deveui">
+    </div>
+    <div class="form-row">
+        <label for="node-input-confirmed"><i class="fa fa-globe"></i> confirmed</label>
+        <input type="text" id="node-input-confirmed">
+    </div>
+    <div class="form-row">
+        <label for="node-input-fport"><i class="fa fa-globe"></i> FPort</label>
+        <input type="text" id="node-input-fport">
+    </div>
+</script>
+
+
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('LW Send',{
+        category: 'DFROBOT-LoRaWAN',
+        color: '#e5e510',
+        defaults: {
+            name: {value: ""},
+            devEUI: { value: "", required: true, validate: RED.validators.regex(/^[A-Za-z0-9]{16}$/) },
+            confirmed: {value: false},
+            fport: {value: "22"}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "bridge.svg",
+        align: "right",
+        label: function() {
+            return this.name||"LoRaWAN给指定节点发送数据";
+        },
+
+
+        oneditprepare: function() {
+
+            var node = this;
+
+            $("#node-input-confirmed").typedInput({
+                types: [
+                    {
+                        value: "confirmed",
+                        options: [
+                            { value: "false", label: "False" },
+                            { value: "true", label: "True" },
+                        ]
+                    }
+                ],
+            })
+            
+            var input_name = $("#node-input-name");
+            var input_deveui = $("#node-input-deveui");
+            var input_confirmed = $("#node-input-confirmed");
+            var inpu_fport = $("#node-input-fport");
+            var input_content = $("#node-input-content");
+
+            // 恢复已有的规则数据
+            input_name.val(node.name);
+            input_deveui.val(node.devEUI);
+            input_confirmed.val(node.confirmed);
+            inpu_fport.val(node.fport);
+            input_content.val(node.content);
+        },
+
+        oneditsave: function() {
+            var node = this;
+            var input_name = $("#node-input-name");
+            var input_deveui = $("#node-input-deveui");
+            var input_confirmed = $("#node-input-confirmed");
+            var inpu_fport = $("#node-input-fport");
+            var input_content = $("#node-input-content");
+
+            // 保存元素的值到节点的配置中
+            node.name = input_name.val();
+            node.devEUI = input_deveui.val();
+            node.confirmed = input_confirmed.val();
+            node.fport = inpu_fport.val();
+            node.content = input_content.val();
+        },
+    });
+</script>
