@@ -1,6 +1,6 @@
 {
     "name": "@renyoo/node-red-dfrobot-lorawan-nodes",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "node red nodes for dfrobot-lorawan",
     "node-red": {
 		"version": ">=2.0.0",
@@ -29,8 +29,8 @@
         "node-red",
         "dfrobot",
         "lorawan"
+		"renyoo"
     ],
-	"acme" : "~1.0.3",
     "dependencies": {
         "mqtt": "^4.2.8",
         "request": "^2.88.2"
