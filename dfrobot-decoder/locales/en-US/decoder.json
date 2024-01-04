@@ -1,0 +1,23 @@
+
+{
+    "lora": {
+        
+        "decoder": {
+
+            "name": "name",
+
+            "property": "property",
+
+            "Label_0_dragOut": "decoder",
+
+            "label_1": "Decoding rules:",
+
+            "label_2": {
+                "SelectAll": "Select all rules",
+                "SelectOne": "Stops after accepting the first match"
+            },
+
+            "label_3": "Custom rules:"
+        }
+    }
+}

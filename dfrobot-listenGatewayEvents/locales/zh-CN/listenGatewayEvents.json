@@ -1,0 +1,16 @@
+
+{
+    "lora": {
+        
+        "listenGatewayEvents": {
+
+            "name": "名称",
+
+            "Label_0_dragOut": "监听网关事件",
+
+            "label_1": "监听事件类型:"
+
+            
+        }
+    }
+}

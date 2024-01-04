@@ -1,0 +1,12 @@
+
+{
+    "lora": {
+        
+        "lorawan_send": {
+
+            "name": "name",
+
+            "Label_0_dragOut": "LoRaWAN sends data to the specified node"
+        }
+    }
+}

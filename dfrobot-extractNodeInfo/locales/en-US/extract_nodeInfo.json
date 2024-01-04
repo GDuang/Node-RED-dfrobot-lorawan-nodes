@@ -1,0 +1,14 @@
+
+{
+    "lora": {
+        
+        "extract_nodeInfo": {
+
+            "name": "name",
+
+            "Label_0_dragOut": "Information extraction",
+
+            "label_1": "Extracting entries:"
+        }
+    }
+}

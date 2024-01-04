@@ -1,0 +1,16 @@
+
+{
+    "lora": {
+        
+        "extract_nodeInfo": {
+
+            "name": "名称",
+
+            "Label_0_dragOut": "信息提取",
+
+            "label_1": "提取条目:"
+
+            
+        }
+    }
+}

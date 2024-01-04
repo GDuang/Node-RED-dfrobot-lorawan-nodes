@@ -1,0 +1,14 @@
+
+{
+    "lora": {
+        
+        "single_nodeInfo": {
+
+            "name": "name",
+
+            "Label_0_dragOut": "Single-node information",
+
+            "label_1": "Specify the device:"
+        }
+    }
+}

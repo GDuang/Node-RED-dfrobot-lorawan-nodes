@@ -1,0 +1,14 @@
+
+{
+    "lora": {
+        
+        "listenGatewayEvents": {
+
+            "name": "name",
+
+            "Label_0_dragOut": "Listen for gateway events",
+
+            "label_1": "Listener Event Type:"
+        }
+    }
+}

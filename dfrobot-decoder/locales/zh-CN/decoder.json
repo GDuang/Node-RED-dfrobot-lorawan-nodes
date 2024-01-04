@@ -1,0 +1,23 @@
+
+{
+    "lora": {
+        
+        "decoder": {
+
+            "name": "名称",
+
+            "property": "属性",
+
+            "Label_0_dragOut": "解码器",
+
+            "label_1": "解码规则:",
+
+            "label_2": {
+                "SelectAll": "全选所有规则",
+                "SelectOne": "接受第一条匹配信息后停止"
+            },
+
+            "label_3": "自定义规则:"
+        }
+    }
+}

@@ -1,0 +1,13 @@
+
+{
+    "lora": {
+        
+        "get_nodesList": {
+
+            "name": "名称",
+
+            "Label_0_dragOut": "获取所有节点设备列表"
+
+        }
+    }
+}

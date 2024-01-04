@@ -1,0 +1,13 @@
+
+{
+    "lora": {
+        
+        "lorawan_receive": {
+
+            "name": "名称",
+
+            "Label_0_dragOut": "LoRaWAN接收所有节点数据信息"
+
+        }
+    }
+}

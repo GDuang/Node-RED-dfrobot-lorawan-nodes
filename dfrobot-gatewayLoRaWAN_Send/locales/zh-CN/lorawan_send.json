@@ -1,0 +1,13 @@
+
+{
+    "lora": {
+        
+        "lorawan_send": {
+
+            "name": "名称",
+
+            "Label_0_dragOut": "LoRaWAN向指定节点发送数据"
+
+        }
+    }
+}

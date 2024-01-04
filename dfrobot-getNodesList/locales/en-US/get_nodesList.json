@@ -1,0 +1,12 @@
+
+{
+    "lora": {
+        
+        "get_nodesList": {
+
+            "name": "name",
+
+            "Label_0_dragOut": "Obtain the list of node devices"
+        }
+    }
+}

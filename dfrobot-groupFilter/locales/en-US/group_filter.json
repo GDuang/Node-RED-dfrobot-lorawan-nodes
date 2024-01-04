@@ -1,0 +1,21 @@
+
+{
+    "lora": {
+        
+        "group_filter": {
+
+            "name": "name",
+
+            "property": "property",
+
+            "Label_0_dragOut": "Sieving node equipment",
+
+            "label_1": "Grouping conditions:",
+
+            "label_2": {
+                "SelectAll": "Select all rules",
+                "SelectOne": "Stops after accepting the first match"
+            }
+        }
+    }
+}
