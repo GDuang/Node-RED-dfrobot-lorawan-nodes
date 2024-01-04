@@ -1,14 +1,11 @@
-<script type="text/html" data-help-name="LW Receive">
-    <p>网关LoRaWAN接收所有节点的数据信息</p>
-</script>
 
 
 
 <script type="text/html" data-template-name="LW Receive">
     <!-- 设置第一行为Name -->
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lora.lorawan_receive.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lora.lorawan_receive.name">
     </div>
 
 </script>
@@ -27,7 +24,7 @@
         outputs:1,
         icon: "bridge.svg",
         label: function() {
-            return this.name||"LoRaWAN接收所有节点数据";
+            return this.name||this._("lora.lorawan_receive.Label_0_dragOut");
         }
     });
 </script>

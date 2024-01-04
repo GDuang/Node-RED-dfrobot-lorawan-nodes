@@ -7,12 +7,12 @@
 <script type="text/html" data-template-name="MusicPlayer">
     <!-- 设置第一行为Name -->
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lora.music.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lora.music.name">
     </div>
 
     <div class="form-row">
-        <label for="node-input-Built_in_files"><i class="fa fa-file"></i> 内置文件 </label>
+        <label for="node-input-Built_in_files"><i class="fa fa-file"></i><span data-i18n="lora.music.label_1"></span> </label>
         <input type="text" id="node-input-Built_in_files" style="width: 450px;">
     </div>
     <!-- <div class="form-row">
@@ -49,7 +49,7 @@
         icon: "font-awesome/fa-headphones",
         align: "right",
         label: function() {
-            return this.name||"音乐播放器";
+            return this.name||this._("lora.music.Label_0_dragOut");
         },
 
 

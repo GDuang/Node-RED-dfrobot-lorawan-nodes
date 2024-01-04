@@ -1,8 +1,4 @@
 
-<script type="text/html" data-help-name="Group">
-    <p>对节点设备进行分组</p>
-</script>
-
 
 
 
@@ -10,18 +6,18 @@
 <script type="text/html" data-template-name="Group">
     <!-- 设置第一行为Name -->
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lora.group_filter.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lora.group_filter.name">
     </div>
     <!-- 设置第二行为负载属性 -->
     <div class="form-row">
-        <label for="node-input-property"><i class="fa fa-ellipsis-h"></i> <span data-i18n="switch.label.property"></span></label>
+        <label for="node-input-property"><i class="fa fa-ellipsis-h"></i> <span data-i18n="lora.group_filter.property"></span></label>
         <input type="text" id="node-input-property" style="width: calc(100% - 105px)"/>
         <input type="hidden" id="node-input-outputs"/>
     </div>
     <!-- 设置第三行为标签(分组条件) -->
     <div class="form-row">
-        <label for="node-input-label"> 分组条件 </label>
+        <label for="node-input-label"> <span data-i18n="lora.group_filter.label_1"></span> </label>
     </div>
     <!-- 设置第四行为容器 -->
     <div class="form-row node-input-rule-container-row">
@@ -43,7 +39,7 @@
         defaults: {
             name: {value:""},
             property: {value:"payload", required:true,
-                       label:RED._("node-red:common.label.payload"),
+                    //    label:RED._("node-red:common.label.payload"),
                        validate: RED.validators.typedInput("propertyType", false)},
             propertyType: { value:"msg" },
             rules: {
@@ -57,7 +53,7 @@
         icon: "switch.svg",
         align: "left",
         label: function() {
-            return this.name||"分筛节点设备";
+            return this.name||this._("lora.group_filter.Label_0_dragOut");
         },
         oneditprepare: function() {
             var node = this;
@@ -73,8 +69,8 @@
                     {
                         value: "selectOutputMode",
                         options: [
-                                    { value: "option_Mode1", label: "全选所有规则"},
-                                    { value: "option_Mode2", label: "接受第—条匹配信息后停止"},
+                                    { value: "option_Mode1", label: this._("lora.decoder.label_2.SelectAll")},
+                                    { value: "option_Mode2", label: this._("lora.decoder.label_2.SelectOne")}
                                  ]
                     }
                 ],

@@ -6,13 +6,13 @@
 <script type="text/html" data-template-name="Single Node">
     <!-- 设置第一行为Name -->
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lora.single_nodeInfo.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lora.single_nodeInfo.name">
     </div>
 
     <!-- 指定节点设备 -->
     <div class="form-row">
-        <label for="node-input-singleDev_type"><i class="icon-tag"></i> 指定节点设备 </label>
+        <label for="node-input-singleDev_type"><i class="icon-tag"></i> <span data-i18n="lora.single_nodeInfo.label_1"></span> </label>
     </div>
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> devEUI </label>
@@ -35,7 +35,7 @@
         align: "left",
         
         label: function() {
-            return this.name||"单节点信息";
+            return this.name||this._("lora.single_nodeInfo.Label_0_dragOut");
         },
 
         oneditprepare: function() {

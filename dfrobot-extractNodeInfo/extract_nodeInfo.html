@@ -1,22 +1,16 @@
 
-<script type="text/html" data-help-name="Packet Item">
-    <p>对单一节点设备中的包信息进行提取</p>
-</script>
-
-
-
 
 <!-- 设置编辑器 -->
 <script type="text/html" data-template-name="Packet Item">
     <!-- 设置第一行为Name -->
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="node-red:common.label.name"></span></label>
-        <input type="text" id="node-input-name" data-i18n="[placeholder]node-red:common.label.name">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lora.extract_nodeInfo.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]lora.extract_nodeInfo.name">
     </div>
 
     <!-- 设置第二行为标签(提取条目) -->
     <div class="form-row">
-        <label for="node-input-label"> 提取条目 </label>
+        <label for="node-input-label"> <span data-i18n="lora.extract_nodeInfo.label_1"></span> </label>
     </div>
 
     <!-- 设置提取的条目 -->
@@ -94,7 +88,7 @@
         align: "left",
         
         label: function() {
-            return this.name||"信息提取";
+            return this.name||this._("lora.extract_nodeInfo.Label_0_dragOut");
         },
 
         oneditprepare: function() {

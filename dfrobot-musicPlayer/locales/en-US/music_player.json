@@ -48,7 +48,15 @@
                 "4_10": "4.10.Lively Sound Effect for Correct Answer.mp3",
                 "4_11": "4.11.Game Victory, System Upgrade Successful.mp3"
 
-            }
+            },
+
+            
+            "name": "name",
+
+            "Label_0_dragOut": "Music Player",
+
+            "label_1": "Built-in files"
+
         }
     }
 }
