@@ -17,7 +17,9 @@
                 "SelectOne": "Stops after accepting the first match"
             },
 
-            "label_3": "Custom rules:"
+            "label_3": "Custom rules:",
+
+            "label_4": "Custom rules"
         }
     }
 }

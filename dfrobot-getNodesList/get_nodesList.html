@@ -10,8 +10,8 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('Node List',{
-      category: 'DFROBOT-LoRaWAN',
-      color: '#e5e510',
+      category: 'dfrobot LoRaWAN',
+        color: '#ff9047',
       defaults: {
         name: {value: ""},
       },
@@ -21,9 +21,6 @@
       label: function() {
         return this.name||this._("lora.get_nodesList.Label_0_dragOut");
       },
-      labelStyle: function() {
-        return this.name?"node_label_italic":"";
-      }
     });
   </script>
   

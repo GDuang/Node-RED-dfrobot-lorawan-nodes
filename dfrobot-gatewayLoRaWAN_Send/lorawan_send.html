@@ -9,8 +9,8 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-deveui"><i class="fa fa-globe"></i> deveui</label>
-        <input type="text" id="node-input-deveui">
+        <label for="node-input-devEUI"><i class="fa fa-globe"></i> deveui</label>
+        <input type="text" id="node-input-devEUI">
     </div>
     <div class="form-row">
         <label for="node-input-confirmed"><i class="fa fa-globe"></i> confirmed</label>
@@ -27,8 +27,8 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('LW Send',{
-        category: 'DFROBOT-LoRaWAN',
-        color: '#e5e510',
+        category: 'dfrobot LoRaWAN',
+        color: '#ff9047',
         defaults: {
             name: {value: ""},
             devEUI: { value: "", required: true, validate: RED.validators.regex(/^[A-Za-z0-9]{16}$/) },
@@ -59,35 +59,7 @@
                     }
                 ],
             })
-            
-            var input_name = $("#node-input-name");
-            var input_deveui = $("#node-input-deveui");
-            var input_confirmed = $("#node-input-confirmed");
-            var inpu_fport = $("#node-input-fport");
-            var input_content = $("#node-input-content");
-
-            // 恢复已有的规则数据
-            input_name.val(node.name);
-            input_deveui.val(node.devEUI);
-            input_confirmed.val(node.confirmed);
-            inpu_fport.val(node.fport);
-            input_content.val(node.content);
         },
-
-        oneditsave: function() {
-            var node = this;
-            var input_name = $("#node-input-name");
-            var input_deveui = $("#node-input-deveui");
-            var input_confirmed = $("#node-input-confirmed");
-            var inpu_fport = $("#node-input-fport");
-            var input_content = $("#node-input-content");
-
-            // 保存元素的值到节点的配置中
-            node.name = input_name.val();
-            node.devEUI = input_deveui.val();
-            node.confirmed = input_confirmed.val();
-            node.fport = inpu_fport.val();
-            node.content = input_content.val();
-        },
+        
     });
 </script>

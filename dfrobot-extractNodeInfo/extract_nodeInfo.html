@@ -39,8 +39,8 @@
         </label>
     </div>
     <div>
-        <label for="node-input-checkbox5_Data">
-            <input type="checkbox" id="node-input-checkbox5_Data" name="checkbox5_Data">
+        <label for="node-input-checkbox5_fCnt">
+            <input type="checkbox" id="node-input-checkbox5_fCnt" name="checkbox5_fCnt">
             fCnt
         </label>
     </div>
@@ -62,6 +62,12 @@
             devAddr
         </label>
     </div>
+    <!-- <div>
+        <label for="node-input-checkbox9_data">
+            <input type="checkbox" id="node-input-checkbox9_data" name="checkbox9_data">
+            data
+        </label>
+    </div> -->
 </script>
 
 
@@ -69,18 +75,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('Packet Item',{  
-        category: 'DFROBOT-LoRaWAN',
-        color: '#e5e510',
+        category: 'dfrobot LoRaWAN',
+        color: '#ff9047',
         defaults: {
             name: { value: "" }, // 对应于节点名称的配置
             checkbox1_RSSI: { value: false, required: true }, // 对应于RSSI复选框的配置
             checkbox2_SNR: { value: false, required: true }, // 对应于SNR复选框的配置
             checkbox3_DR: { value: false, required: true }, // 对应于DR复选框的配置
             checkbox4_devEUI: { value: false, required: true }, // 对应于UpCnt复选框的配置
-            checkbox5_Data: { value: false, required: true }, // 对应于Data复选框的配置
+            checkbox5_fCnt: { value: false, required: true }, // 对应于fCnt复选框的配置
             checkbox6_deviceName: { value: false, required: true },
             checkbox7_applicationID: { value: false, required: true } ,
             checkbox8_devAddr: { value: false, required: true } 
+            // checkbox9_data: { value: false, required: true } 
         },
         inputs:1,
         outputs:1,  
@@ -90,22 +97,6 @@
         label: function() {
             return this.name||this._("lora.extract_nodeInfo.Label_0_dragOut");
         },
-
-        oneditprepare: function() {
-            // 使用当前节点配置设置复选框的状态
-            $("#node-input-checkbox1_RSSI").prop('checked', this.checkbox1_RSSI);
-            $("#node-input-checkbox2_SNR").prop('checked', this.checkbox2_SNR);
-            $("#node-input-checkbox3_DR").prop('checked', this.checkbox3_DR);
-            $("#node-input-checkbox4_devEUI").prop('checked', this.checkbox4_devEUI);
-            $("#node-input-checkbox5_Data").prop('checked', this.checkbox5_Data);
-            $("#node-input-checkbox6_deviceName").prop('checked', this.checkbox6_deviceName);
-            $("#node-input-checkbox7_applicationID").prop('checked', this.checkbox7_applicationID);
-            $("#node-input-checkbox8_devAddr").prop('checked', this.checkbox8_devAddr);
-        },
-
-        oneditsave: function() {
-
-        }
     });
 </script>
 

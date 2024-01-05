@@ -9,8 +9,6 @@
     </div>
     <!-- 设置第二行为负载属性 -->
     <div class="form-row">
-        <label for="node-input-property"><i class="fa fa-ellipsis-h"></i> <span data-i18n="lora.decoder.property"></span></label>
-        <input type="text" id="node-input-property" style="width: calc(100% - 105px)"/>
         <input type="hidden" id="node-input-outputs"/>
     </div>
 
@@ -31,9 +29,12 @@
 
    <!-- 给相关的div添加类名node-input-custom-rule-row以便于控制显示 -->
    <div class="form-row node-input-custom-rule-row">
-        <label for="node-input-decodeText"><i class="fa fa-tag"></i> <span data-i18n="lora.decoder.label_3"></span></label>
+        <!-- 标签 -->
+        <label style="width: 150px;"><i class="fa fa-tag"></i> <span data-i18n="lora.decoder.label_3"></span></label>
+        <!-- 编辑器框 -->
         <div style="height: 250px; min-height:150px; width: 100%;" class="node-text-editor" id="node-input-decode"></div>
     </div>  
+
 
     <div class="form-row">
         <input type="text" id="node-input-selectOutputMode" style="width: calc(100% - 105px);">
@@ -48,18 +49,11 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('Decoder',{  
-        category: 'DFROBOT-LoRaWAN',
-        color: '#e5e510',
+        category: 'dfrobot LoRaWAN',
+        color: '#ff9047',
         defaults: {
             name: {value:""},
-            property: {value:"payload", required:true,
-                    //    label:RED._("node-red:common.label.payload"),
-                       validate: RED.validators.typedInput("propertyType", false)},
-            propertyType: { value:"msg" },
 
-            // rules: 
-            //     value: {}
-            // },
             rules: [],
 
             decodeText: { value: "" },
@@ -80,16 +74,6 @@
             var node = this;
 
 
-
-
-            $("#node-input-property").typedInput({default:this.propertyType||'msg',types:['msg']});
-            var outputCount = $("#node-input-outputs").val("{}");
-
-            $("#node-input-property").typedInput({
-                default: this.propertyType || 'msg',
-                types: ['msg']
-            });
-
             $("#node-input-selectOutputMode").typedInput({
                 types: [
                     {
@@ -104,7 +88,6 @@
 
 
 
-
             var outputCount = $("#node-input-outputs");
 
             // 根据现有规则初始化输出计数
@@ -112,22 +95,38 @@
             outputCount.val(initialOutputs);
 
             $("#node-input-rule-container").css('min-height', '350px').css('min-width', '400px').editableList({
+
                 addItem: function(container, index, opt) {
                     // 在容器中创建子容器————输出支路对象
                     var row = $('<div/>').addClass('form-row').appendTo(container);
                     var selectDiv = $('<div/>').addClass('form-row').appendTo(row);
+
+                    // 创建一个下拉选项列表
+                    var selectOptions = [
+                        { value: 'option1', text: 'LWDTU-DF01' },
+                        { value: 'option2', text: 'String&Buffer' },
+                        { value: 'option3', text: node._("lora.decoder.label_4")},
+                    ];
+
+                    // 创建下拉菜单并添加选项
                     var select = $('<select/>', {
                         class: 'node-input-rule-type',
-                        id: 'select' + index,
-                        html: 
-                            "<option value='option1' selected>LWDTU-DF01</option>" +
-                            "<option value='option2'>String&Buffer</option>" +
-                            "<option value='option3'>自定义规则</option>"
+                        id: 'select' + index
                     }).appendTo(selectDiv);
+
+                    // 遍历选项列表，并将它们添加到下拉菜单中
+                    selectOptions.forEach(function(option) {
+                        $('<option/>', {
+                            value: option.value, 
+                            text: option.text,
+                            selected: option.value === 'option1' // 设置LWDTU-DF01为默认选中项
+                        }).appendTo(select);
+                    });
+
 
                     // 如果提供了初始数据，恢复下拉选项和文本框
                     if (opt) {
-                        select.val(opt.type || "");
+                        select.val(opt.type || "option1");
                     }
 
                     // 创建一个输出标识符(箭头和数字)
@@ -161,7 +160,7 @@
                 var currentRules = $("#node-input-rule-container").editableList('items').map(function(i, el) {
                     return { type: $(el).find('.node-input-rule-type').val() };
                 }).get();
-                console.log("currentRules = " + JSON.stringify(currentRules))
+                // console.log("currentRules = " + JSON.stringify(currentRules))
                 // 更新显示状态
                 updateCustomRuleDisplay(currentRules);
             });
@@ -212,17 +211,20 @@
 
             // 定义一个函数来更新自定义规则和输出模式输入框的显示状态
             function updateCustomRuleDisplay(rules) {
-                // 检查rules数组中是否有对象的type属性为"option3"
-                var showCustomRule = rules.some(function(rule) {
-                    return rule.type === "option3";
-                });
+                if(rules !== undefined && rules !== null) {
+                    // 检查rules数组中是否有对象的type属性为"option3"
+                    var showCustomRule = rules.some(function(rule) {
+                        return rule.type === "option3";
+                    });
 
-                // 根据检查结果显示或隐藏自定义规则和输出模式输入框
-                if(showCustomRule) {
-                    $(".node-input-custom-rule-row").show();
-                } else {
-                    $(".node-input-custom-rule-row").hide();
+                    // 根据检查结果显示或隐藏自定义规则和输出模式输入框
+                    if(showCustomRule) {
+                        $(".node-input-custom-rule-row").show();
+                    } else {
+                        $(".node-input-custom-rule-row").hide();
+                    }
                 }
+
             }
 
             // // 在下拉框选择变化时也更新显示状态

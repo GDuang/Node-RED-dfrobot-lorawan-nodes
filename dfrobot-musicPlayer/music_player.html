@@ -27,8 +27,8 @@
 
 
     RED.nodes.registerType('MusicPlayer',{
-        category: 'DFROBOT-LoRaWAN',
-        color: '#e5e510',
+        category: 'dfrobot LoRaWAN',
+        color: '#ff9047',
         defaults: {
             name: {value: ""},
             
@@ -60,7 +60,8 @@
             let opts = mp3.map(v=>(
                 {
                     label: this._(v.traid),
-                    value: v.path,
+                    // value: v.path    //由于在jQuery选择器中的值中包含了特殊字符（如方括号和单引号）引起的，需要进行转义，以确保它们被正确地识别为值的一部分(解决方案：使用$.escapeSelector()函数来转义值)
+                    value: $.escapeSelector(v.path)
                 }
             ))
 
@@ -122,7 +123,6 @@
             // 恢复已有的规则数据
             $("#node-input-name").val(node.name);
             $("#node-input-Built_in_files").typedInput("value", node._Built_in_file_opts);  // 恢复下拉选项框的选项
-            // console.log("_Built_in_file_opts = " + node._Built_in_file_opts)
 
         },
 

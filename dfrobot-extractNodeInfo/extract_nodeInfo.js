@@ -9,8 +9,8 @@ module.exports = function(RED) {
             snr: config.checkbox2_SNR,
             dr: config.checkbox3_DR,
             devEUI: config.checkbox4_devEUI,
-            // data: config.checkbox5_Data,
-            fCnt: config.checkbox5_Data,
+            // data: config.checkbox9_data,
+            fCnt: config.checkbox5_fCnt,
             deviceName: config.checkbox6_deviceName,
             applicationID: config.checkbox7_applicationID,
             devAddr: config.checkbox8_devAddr

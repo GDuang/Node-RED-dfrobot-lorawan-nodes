@@ -3,11 +3,9 @@ const request = require('request');
 const util = require('util');
 const requestPost = util.promisify(request.post);
 const requestGet = util.promisify(request.get);
-
+const mqtt = require('mqtt');
 
 module.exports = function(RED) {
-    const mqtt = require('mqtt');
-
 
     function Mqtt_publishMessage(config) {
         RED.nodes.createNode(this, config);
@@ -43,10 +41,16 @@ module.exports = function(RED) {
 
             var credentials = {email: "admin", password: "admin"};
             // 读取自签名证书文件
-            var cert = fs.readFileSync('/etc/nginx/cert/node.cert.pem');    
-            var key = fs.readFileSync('/etc/nginx/cert/node.key.pem');
-            // var cert = fs.readFileSync('F:\\cert\\node.cert.pem');
-            // var key = fs.readFileSync('F:\\cert\\node.key.pem');
+            try {
+                    var cert = fs.readFileSync('/etc/nginx/cert/node.cert.pem');
+                    var key = fs.readFileSync('/etc/nginx/cert/node.key.pem');
+                    // var cert = fs.readFileSync('F:\\cert\\node.cert.pem');
+                    // var key = fs.readFileSync('F:\\cert\\node.key.pem');
+                } catch (error) {
+                    this.log("找不到证书文件：" + error);
+                }
+
+
 
             var loginOptions = {
                 url: loginUrl,
@@ -145,8 +149,8 @@ module.exports = function(RED) {
 
         // mqtt错误信息
         client.on('error', function (error) {
-            node.error('MQTT client error', error);
-            node.status({fill:"red",shape:"ring",text:"connection error"});
+            // node.error('MQTT client error', error);
+            node.status({fill:"red",shape:"ring",text:"connection failed"});
         });
 
         // 关闭或删除节点，断开mqtt连接

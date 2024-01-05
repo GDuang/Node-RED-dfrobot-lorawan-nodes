@@ -373,7 +373,11 @@ module.exports = function(RED) {
             var msg_payload = msg.payload;
             var msg_payload_data = msg.payload.data;
 
-            // console.log(node.decodeText)
+
+
+            if (node.rules === undefined || node.rules === null) {
+                return;
+            }
 
             if (!Array.isArray(node.rules)) {
                 return;

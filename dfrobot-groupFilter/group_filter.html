@@ -1,7 +1,4 @@
 
-
-
-
 <!-- 设置编辑器 -->
 <script type="text/html" data-template-name="Group">
     <!-- 设置第一行为Name -->
@@ -11,8 +8,6 @@
     </div>
     <!-- 设置第二行为负载属性 -->
     <div class="form-row">
-        <label for="node-input-property"><i class="fa fa-ellipsis-h"></i> <span data-i18n="lora.group_filter.property"></span></label>
-        <input type="text" id="node-input-property" style="width: calc(100% - 105px)"/>
         <input type="hidden" id="node-input-outputs"/>
     </div>
     <!-- 设置第三行为标签(分组条件) -->
@@ -34,18 +29,19 @@
 
 <script type="text/javascript">
     RED.nodes.registerType('Group',{  
-        category: 'DFROBOT-LoRaWAN',
-        color: '#e5e510',
+        category: 'dfrobot LoRaWAN',
+        color: '#ff9047',
         defaults: {
             name: {value:""},
-            property: {value:"payload", required:true,
-                    //    label:RED._("node-red:common.label.payload"),
-                       validate: RED.validators.typedInput("propertyType", false)},
-            propertyType: { value:"msg" },
-            rules: {
-                value: {}
-            },
-            outputs: {value:1},
+
+            // 用于记录分组条件(容器中的规则)
+            // rules: {
+            //     value: {}
+            // },
+            rules: [],
+
+            outputs: {value:1}, // 用于记录输出端口的数量
+
             OutputMode: {value: "option_Mode1"}
         },
         inputs:1,
@@ -55,15 +51,11 @@
         label: function() {
             return this.name||this._("lora.group_filter.Label_0_dragOut");
         },
+
+
         oneditprepare: function() {
             var node = this;
 
-            $("#node-input-property").typedInput({
-                default: this.propertyType || 'msg',
-                types: ['msg']
-            });
-
-            
             $("#node-input-selectOutputMode").typedInput({
                 types: [
                     {
@@ -83,24 +75,40 @@
             var initialOutputs = node.rules ? node.rules.length : 1;
             outputCount.val(initialOutputs);
 
-            $("#node-input-rule-container").css('min-height', '450px').css('min-width', '450px').editableList({
+
+
+            $("#node-input-rule-container").css({
+                'min-height': '450px',
+                'min-width': '450px'
+            }).editableList({
                 addItem: function(container, index, opt) {
-                    // 在容器中创建子容器————输出支路对象
                     var row = $('<div/>').addClass('form-row').appendTo(container);
                     var selectDiv = $('<div/>').addClass('form-row').appendTo(row);
+
+                    // 创建一个下拉选项列表
+                    var selectOptions = [
+                        { value: 'devEUI', text: 'devEUI' },
+                        { value: 'deviceName', text: 'deviceName' },
+                        { value: 'applicationID', text: 'applicationID' },
+                        { value: 'devAddr', text: 'devAddr' }
+                    ];
+
+                    // 创建下拉菜单并添加选项
                     var select = $('<select/>', {
                         class: 'node-input-rule-type',
-                        id: 'select' + index,
-                        html: 
-                            "<option value='devEUI' selected>devEUI</option>" +
-                            "<option value='deviceName'>deviceName</option>" +
-                            "<option value='applicationID'>applicationID</option>" +
-                            "<option value='devAddr'>devAddr</option>"
+                        id: 'select' + index
                     }).appendTo(selectDiv);
 
+                    // 遍历选项列表，并将它们添加到下拉菜单中
+                    selectOptions.forEach(function(option) {
+                        $('<option/>', {
+                            value: option.value, 
+                            text: option.text,
+                            selected: option.value === 'devEUI' // 设置devEUI为默认选中项
+                        }).appendTo(select);
+                    });
 
                
-                    // var addButtonDiv = $('<div/>').addClass('form-row').appendTo(row);
                     var addButton = $('<button/>', { text: '+', 'class': 'node-input-rule-add' }).appendTo(selectDiv);
                     addButton.on('click', function(e) {
                         e.preventDefault();
@@ -118,13 +126,12 @@
                             e.preventDefault();
                             textboxRow.remove();
                         });
-
-                        sub_index += 1
                     });
                     
+
                     // 如果提供了初始数据，恢复下拉选项和文本框
                     if (opt) {
-                        select.val(opt.type || "");
+                        select.val(opt.type || "devEUI");
                         if (opt.properties) {
                             opt.properties.forEach(function(property) {
                                 var textboxRow = $('<div/>').addClass('form-row').appendTo(container);
@@ -211,22 +218,6 @@
     });
 </script>
 
-<!-- 
-<style>
-    .form-row {
-        display: flex;
-        align-items: center;
-        margin-bottom: 5px;
-    }
-    .form-row > div {
-        margin-right: 10px;
-    }
-    .node-input-rule-property {
-        display: block;
-        width: 100%;
-        margin-top: 5px;
-    }
-</style> -->
 
 
 

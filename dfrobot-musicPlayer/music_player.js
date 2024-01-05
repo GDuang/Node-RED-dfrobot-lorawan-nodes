@@ -11,7 +11,7 @@ module.exports = function(RED) {
 
             msg.payload = {res: ""};
 
-            var command = `mpg123 -o alsa:hw:1,0 ${config._Built_in_file_opts}`;
+            var command = `mpg123 -o alsa:hw:1,0 ${selectedOption}`;
 
 
             exec(command, function(error, stdout, stderr) {

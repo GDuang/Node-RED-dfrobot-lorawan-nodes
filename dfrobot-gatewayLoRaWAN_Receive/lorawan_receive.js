@@ -1,5 +1,6 @@
+const mqtt = require('mqtt');
+
 module.exports = function(RED) {
-    const mqtt = require('mqtt');
 
     function Mqtt_getAllNodesInfo(config) {
         RED.nodes.createNode(this, config);
@@ -51,7 +52,7 @@ module.exports = function(RED) {
                 payload_data = JSON.parse(Json_payload);
             } catch (e) {
                 // 如果解析失败，抛出错误并退出函数
-                node.error("ERROR: Json解析出错, 监听到非Json格式数据", message);
+                node.error("ERROR: Listen to data in non-Json format", message);
                 return;
             }
 
@@ -74,8 +75,8 @@ module.exports = function(RED) {
 
         // mqtt错误信息
         client.on('error', function (error) {
-            node.error('MQTT client error', error);
-            node.status({fill:"red",shape:"ring",text:"connection error"});
+            // node.error('MQTT client error', error);
+            node.status({fill:"red",shape:"ring",text:"connection failed"});
         });
 
         // 关闭或删除节点，断开mqtt连接

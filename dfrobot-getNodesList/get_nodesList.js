@@ -15,8 +15,13 @@ module.exports = function(RED) {
             var applicationIDUrl = 'https://127.0.0.1:8080/api/applications';
 
             var credentials = {email: "admin", password: "admin"};
-            var cert = fs.readFileSync('/etc/nginx/cert/node.cert.pem');
-            var key = fs.readFileSync('/etc/nginx/cert/node.key.pem');
+
+            try {
+                var cert = fs.readFileSync('/etc/nginx/cert/node.cert.pem');
+                var key = fs.readFileSync('/etc/nginx/cert/node.key.pem');
+              } catch (error) {
+                this.log("找不到证书文件：" + error);
+              }
 
             var loginOptions = {
                 url: loginUrl,

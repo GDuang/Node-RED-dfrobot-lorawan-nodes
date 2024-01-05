@@ -1,5 +1,6 @@
+const mqtt = require('mqtt');
+
 module.exports = function(RED) {
-    const mqtt = require('mqtt');
 
     // config参数来访问 节点属性的配置信息(包括节点的可编辑属性defaults)
     function Mqtt_getSingleNodesInfo(config) {
@@ -32,14 +33,15 @@ module.exports = function(RED) {
             qos: 0
         });
 
+        // mqtt连接函数
         client.on('connect', function () {
 
             let devEUI_value = node.devEUI;
             let devEUI_lowercase;
-            console.log('node.devEUI  ' + node.devEUI)
+
             if (devEUI_value !== undefined && devEUI_value !== null) {
                 devEUI_lowercase = devEUI_value.toLowerCase();
-                console.log('devEUI_lowercase  ' + devEUI_lowercase)
+                node.log('Connected to MQTT broker');
                 client.subscribe(`application/+/device/${devEUI_lowercase}/event/up`, { qos: 0 });
                 node.status({fill:"green",shape:"dot",text:"connected"});
             }
@@ -59,7 +61,7 @@ module.exports = function(RED) {
                 payload_data = JSON.parse(Json_payload);
             } catch (e) {
                 // 如果解析失败，抛出错误并退出函数
-                node.error("ERROR: Json解析出错, 监听到非Json格式数据", message);
+                node.error("ERROR: Listen to data in non-Json format", message);
                 return;
             }
 
@@ -84,8 +86,8 @@ module.exports = function(RED) {
 
 
         client.on('error', function (error) {
-            node.error('MQTT client error', error);
-            node.status({fill:"red",shape:"ring",text:"connection error"});
+            // node.error('MQTT client error', error);
+            node.status({fill:"red",shape:"ring",text:"connection failed"});
         });
 
 

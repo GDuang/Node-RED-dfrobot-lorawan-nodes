@@ -1,8 +1,8 @@
 
 
-<!-- 设置编辑器 -->
+<!-- 一、节点配置界面的html代码 -->
 <script type="text/html" data-template-name="Single Node">
-    <!-- 设置第一行为Name -->
+    <!-- 设置第一行为Name 其中placeholder标识占位符 -->
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="lora.single_nodeInfo.name"></span></label>
         <input type="text" id="node-input-name" data-i18n="[placeholder]lora.single_nodeInfo.name">
@@ -10,18 +10,22 @@
 
     <!-- 指定节点设备 -->
     <div class="form-row">
-        <label for="node-input-singleDev_type"><i class="icon-tag"></i> <span data-i18n="lora.single_nodeInfo.label_1"></span> </label>
+        <label style="width: 150px;"><i class="icon-tag"></i> <span data-i18n="lora.single_nodeInfo.label_1"></span> </label>
     </div>
+
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> devEUI </label>
-        <input type="text" id="node-input-singleDevText" placeholder="devEUI">
+        <label for="node-input-devEUI"><i class="fa fa-tag"></i> devEUI </label>
+        <input type="text" id="node-input-devEUI" placeholder="devEUI">
     </div>
 </script>
 
+
+
+<!-- 二、节点的配置信息 -->
 <script type="text/javascript">
     RED.nodes.registerType('Single Node',{  
-        category: 'DFROBOT-LoRaWAN',
-        color: '#e5e510',
+        category: 'dfrobot LoRaWAN',
+        color: '#ff9047',
         // 存放节点的可编辑属性
         defaults: {
             name: { value: "" }, // 对应于节点名称的配置
@@ -36,25 +40,7 @@
             return this.name||this._("lora.single_nodeInfo.Label_0_dragOut");
         },
 
-        oneditprepare: function() {
-            var node = this;
-            var inputName = $("#node-input-name");
-            var inputSingleDevText = $("#node-input-singleDevText");
 
-            // 恢复已有的规则数据
-            inputName.val(node.name);
-            inputSingleDevText.val(node.devEUI);
-        },
-
-        oneditsave: function() {
-            var node = this;
-            var inputName = $("#node-input-name");
-            var inputSingleDevText = $("#node-input-singleDevText");
-
-            // 保存元素的值到节点的配置中
-            node.name = inputName.val();
-            node.devEUI = inputSingleDevText.val();
-        },
     });
 </script>
 
