@@ -36,6 +36,54 @@ const mp3 = [
         "CN": "2.1.哔声长屏蔽无信号预告通知.mp3"
     },
     {
+        "traid": "lora.music.mp3file.2_2",
+        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'2.[Earthquake Alarm Drill Sound Effect][地震警报演练音效].mp3'`,
+        "EN": "2.2.Earthquake Alarm Drill Sound Effect.mp3",
+        "CN": "2.2.地震警报演练音效.mp3"
+    },
+    {
+        "traid": "lora.music.mp3file.2_3",
+        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'3.[Low-Pitched Warning Light Emergency Alarm Sound Effect][低沉警灯警示紧急警报音效].mp3'`,
+        "EN": "2.3.Low-Pitched Warning Light Emergency Alarm Sound Effect.mp3",
+        "CN": "2.3.低沉警灯警示紧急警报音效.mp3"
+    },
+    {
+        "traid": "lora.music.mp3file.2_4",
+        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'4.[Alarm for Reading Error and Device Failure][读取错误设备故障的警报].mp3'`,
+        "EN": "2.4.Alarm for Reading Error and Device Failure.mp3",
+        "CN": "2.4.读取错误设备故障的警报.mp3"
+    },
+    {
+        "traid": "lora.music.mp3file.2_5",
+        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'5.[Urgent Air Raid Alarm][防空警报紧急].mp3'`,
+        "EN": "2.5.Urgent Air Raid Alarm.mp3",
+        "CN": "2.5.防空警报紧急.mp3"
+    },
+    {
+        "traid": "lora.music.mp3file.2_6",
+        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'6.[Fire Alarm Sound Effect During a Fire][火灾时火警警报音效].mp3'`,
+        "EN": "2.6.Fire Alarm Sound Effect During a Fire.mp3",
+        "CN": "2.6.火灾时火警警报音效.mp3"
+    },
+    {
+        "traid": "lora.music.mp3file.2_7",
+        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'7.[Mechanical Failure Alarm Sound Effect][机械故障警报音效].mp3'`,
+        "EN": "2.7.Mechanical Failure Alarm Sound Effect.mp3",
+        "CN": "2.7.机械故障警报音效.mp3"
+    },
+    {
+        "traid": "lora.music.mp3file.2_8",
+        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'8.[Urgent Ship Equipment Failure Alarm][急促的船舶设备故障警报].mp3'`,
+        "EN": "2.8.Urgent Ship Equipment Failure Alarm.mp3",
+        "CN": "2.8.急促的船舶设备故障警报.mp3"
+    },
+    {
+        "traid": "lora.music.mp3file.2_9",
+        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'9.[Emergency Activation of the Mechanism to Sound the Air Raid Alarm][紧急触发机关拉响防空警报].mp3'`,
+        "EN": "2.9.Emergency Activation of the Mechanism to Sound the Air Raid Alarm.mp3",
+        "CN": "2.9.紧急触发机关拉响防空警报.mp3"
+    },
+    {
         "traid": "lora.music.mp3file.2_10",
         "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'10.[Alarm Buzzer Sound Effect][警报蜂鸣器音效].mp3'`,
         "EN": "2.10.Alarm Buzzer Sound Effect.mp3",
@@ -90,54 +138,6 @@ const mp3 = [
         "CN": "2.19.系统错误取消警报.mp3"
     },
     {
-        "traid": "lora.music.mp3file.2_2",
-        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'2.[Earthquake Alarm Drill Sound Effect][地震警报演练音效].mp3'`,
-        "EN": "2.2.Earthquake Alarm Drill Sound Effect.mp3",
-        "CN": "2.2.地震警报演练音效.mp3"
-    },
-    {
-        "traid": "lora.music.mp3file.2_3",
-        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'3.[Low-Pitched Warning Light Emergency Alarm Sound Effect][低沉警灯警示紧急警报音效].mp3'`,
-        "EN": "2.3.Low-Pitched Warning Light Emergency Alarm Sound Effect.mp3",
-        "CN": "2.3.低沉警灯警示紧急警报音效.mp3"
-    },
-    {
-        "traid": "lora.music.mp3file.2_4",
-        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'4.[Alarm for Reading Error and Device Failure][读取错误设备故障的警报].mp3'`,
-        "EN": "2.4.Alarm for Reading Error and Device Failure.mp3",
-        "CN": "2.4.读取错误设备故障的警报.mp3"
-    },
-    {
-        "traid": "lora.music.mp3file.2_5",
-        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'5.[Urgent Air Raid Alarm][防空警报紧急].mp3'`,
-        "EN": "2.5.Urgent Air Raid Alarm.mp3",
-        "CN": "2.5.防空警报紧急.mp3"
-    },
-    {
-        "traid": "lora.music.mp3file.2_6",
-        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'6.[Fire Alarm Sound Effect During a Fire][火灾时火警警报音效].mp3'`,
-        "EN": "2.6.Fire Alarm Sound Effect During a Fire.mp3",
-        "CN": "2.6.火灾时火警警报音效.mp3"
-    },
-    {
-        "traid": "lora.music.mp3file.2_7",
-        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'7.[Mechanical Failure Alarm Sound Effect][机械故障警报音效].mp3'`,
-        "EN": "2.7.Mechanical Failure Alarm Sound Effect.mp3",
-        "CN": "2.7.机械故障警报音效.mp3"
-    },
-    {
-        "traid": "lora.music.mp3file.2_8",
-        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'8.[Urgent Ship Equipment Failure Alarm][急促的船舶设备故障警报].mp3'`,
-        "EN": "2.8.Urgent Ship Equipment Failure Alarm.mp3",
-        "CN": "2.8.急促的船舶设备故障警报.mp3"
-    },
-    {
-        "traid": "lora.music.mp3file.2_9",
-        "path": `/gw/sound/system/'2.[alarm sound][警报声]'/'9.[Emergency Activation of the Mechanism to Sound the Air Raid Alarm][紧急触发机关拉响防空警报].mp3'`,
-        "EN": "2.9.Emergency Activation of the Mechanism to Sound the Air Raid Alarm.mp3",
-        "CN": "2.9.紧急触发机关拉响防空警报.mp3"
-    },
-    {
         "traid": "lora.music.mp3file.3_1",
         "path": `/gw/sound/system/'3.[wind chime sound][风铃]'/'1.[Wind Chime Transition Sound Effect][短暂的铃铛风铃转场音效].mp3'`,
         "EN": "3.1.Wind Chime Transition Sound Effect.mp3",
@@ -186,18 +186,6 @@ const mp3 = [
         "CN": "4.1.错误音效无辜无奈回答错误.mp3"
     },
     {
-        "traid": "lora.music.mp3file.4_10",
-        "path": `/gw/sound/system/'4.[right wrong][正确  错误]'/'10.[Lively Sound Effect for Correct Answer][灵动回答正确音效].mp3'`,
-        "EN": "4.10.Lively Sound Effect for Correct Answer.mp3",
-        "CN": "4.10.灵动回答正确音效.mp3"
-    },
-    {
-        "traid": "lora.music.mp3file.4_11",
-        "path": `/gw/sound/system/'4.[right wrong][正确  错误]'/'11.[Game Victory, System Upgrade Successful][游戏胜利 升级系统成功].mp3'`,
-        "EN": "4.11.Game Victory, System Upgrade Successful.mp3",
-        "CN": "4.11.游戏胜利 升级系统成功.mp3"
-    },
-    {
         "traid": "lora.music.mp3file.4_2",
         "path": `/gw/sound/system/'4.[right wrong][正确  错误]'/'2.[Electronic Prompt Sound 'Ding Dong', Quick Correct Response Sound Effect][电子提示音叮咚抢答回答正确音效].mp3'`,
         "EN": "4.2.Electronic Prompt Sound 'Ding Dong', Quick Correct Response Sound Effect.mp3",
@@ -244,5 +232,17 @@ const mp3 = [
         "path": `/gw/sound/system/'4.[right wrong][正确  错误]'/'9.[Game Over, Incorrect Answer, Failure][游戏结束回答错误失败].mp3'`,
         "EN": "4.9.Game Over, Incorrect Answer, Failure.mp3",
         "CN": "4.9.游戏结束回答错误失败.mp3"
+    },
+    {
+        "traid": "lora.music.mp3file.4_10",
+        "path": `/gw/sound/system/'4.[right wrong][正确  错误]'/'10.[Lively Sound Effect for Correct Answer][灵动回答正确音效].mp3'`,
+        "EN": "4.10.Lively Sound Effect for Correct Answer.mp3",
+        "CN": "4.10.灵动回答正确音效.mp3"
+    },
+    {
+        "traid": "lora.music.mp3file.4_11",
+        "path": `/gw/sound/system/'4.[right wrong][正确  错误]'/'11.[Game Victory, System Upgrade Successful][游戏胜利 升级系统成功].mp3'`,
+        "EN": "4.11.Game Victory, System Upgrade Successful.mp3",
+        "CN": "4.11.游戏胜利 升级系统成功.mp3"
     }
 ]
