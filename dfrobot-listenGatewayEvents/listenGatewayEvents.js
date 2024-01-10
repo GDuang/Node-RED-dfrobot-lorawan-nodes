@@ -44,8 +44,8 @@ module.exports = function(RED) {
             var messages = new Array(node.outputs);
 
             let index = 0;
-            console.log("topic = " + topic)
-            console.log("message = " + message)
+            // console.log("topic = " + topic)
+            // console.log("message = " + message)
 
             // 尝试将JSON字符串解析为JavaScript对象
             try {
@@ -69,7 +69,7 @@ module.exports = function(RED) {
                                    }   
                     }
                     messages[index] = msg_obj;
-                    console.log("messages = " + JSON.stringify(messages))
+                    // console.log("messages = " + JSON.stringify(messages))
                 }
                 index++;
             }   
@@ -84,7 +84,7 @@ module.exports = function(RED) {
                                    }   
                     }
                     messages[index] = msg_obj;
-                    console.log("messages = " + JSON.stringify(messages))
+                    // console.log("messages = " + JSON.stringify(messages))
                 }
                 index++;
             } 
@@ -100,7 +100,7 @@ module.exports = function(RED) {
                                    }   
                     }
                     messages[index] = msg_obj;
-                    console.log("messages = " + JSON.stringify(messages))
+                    // console.log("messages = " + JSON.stringify(messages))
                 }
                 index++;
             } 
