@@ -9,6 +9,10 @@
         <input type="text" id="node-input-name" data-i18n="[placeholder]lora.listenGatewayEvents.name">
     </div>
 
+    <div class="form-row">
+        <input type="hidden" id="node-input-outputs"/>
+    </div>
+
     <!-- 设置第二行为标签(提取条目) -->
     <div class="form-row">
         <label for="node-input-label"> <span data-i18n="lora.listenGatewayEvents.label_1"></span> </label>
@@ -16,43 +20,43 @@
 
     <!-- 设置第三行为容器 其中ol表示有序列表 -->
     <div class="form-row">
-        <input type="checkbox" id="node-input-checkbox1" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-checkbox1" style="display: inline-block; width: auto; vertical-align: top;">Power On</label>
+        <input type="checkbox" id="node-input-checkbox1_Power_On" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox1_Power_On" style="display: inline-block; width: auto; vertical-align: top;">Power On</label>
     </div>
 
-    <div class="form-row">
+    <!-- <div class="form-row">
         <input type="checkbox" id="node-input-checkbox2" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-checkbox2" style="display: inline-block; width: auto; vertical-align: top;">Power Off</label>
+        <label for="node-input-checkbox2_Power_Off" style="display: inline-block; width: auto; vertical-align: top;">Power Off</label>
+    </div> -->
+
+    <div class="form-row">
+        <input type="checkbox" id="node-input-checkbox3_WAN_Up" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox3_WAN_Up" style="display: inline-block; width: auto; vertical-align: top;">WAN Up</label>
     </div>
 
     <div class="form-row">
-        <input type="checkbox" id="node-input-checkbox3" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-checkbox3" style="display: inline-block; width: auto; vertical-align: top;">WAN Up</label>
+        <input type="checkbox" id="node-input-checkbox4_WAN_Down" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox4_WAN_Down" style="display: inline-block; width: auto; vertical-align: top;">WAN Down</label>
     </div>
 
     <div class="form-row">
-        <input type="checkbox" id="node-input-checkbox4" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-checkbox4" style="display: inline-block; width: auto; vertical-align: top;">WAN Down</label>
+        <input type="checkbox" id="node-input-checkbox5_Cellular_Up" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox5_Cellular_Up" style="display: inline-block; width: auto; vertical-align: top;">Cellular Up</label>
     </div>
 
     <div class="form-row">
-        <input type="checkbox" id="node-input-checkbox5" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-checkbox5" style="display: inline-block; width: auto; vertical-align: top;">Cellular Up</label>
+        <input type="checkbox" id="node-input-checkbox6_Cellular_Down" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox6_Cellular_Down" style="display: inline-block; width: auto; vertical-align: top;">Cellular Down</label>
     </div>
 
     <div class="form-row">
-        <input type="checkbox" id="node-input-checkbox6" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-checkbox6" style="display: inline-block; width: auto; vertical-align: top;">Cellular Up</label>
+        <input type="checkbox" id="node-input-checkbox7_VPN_Up" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox7_VPN_Up" style="display: inline-block; width: auto; vertical-align: top;">VPN Up</label>
     </div>
 
     <div class="form-row">
-        <input type="checkbox" id="node-input-checkbox7" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-checkbox7" style="display: inline-block; width: auto; vertical-align: top;">VPN Up</label>
-    </div>
-
-    <div class="form-row">
-        <input type="checkbox" id="node-input-checkbox8" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-checkbox8" style="display: inline-block; width: auto; vertical-align: top;">VPN Down</label>
+        <input type="checkbox" id="node-input-checkbox8_VPN_Down" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-checkbox8_VPN_Down" style="display: inline-block; width: auto; vertical-align: top;">VPN Down</label>
     </div>
 </script>
 
@@ -65,22 +69,22 @@
         color: '#ff9047',
         defaults: {
             name: {value:""},
-            checkbox1: {value: false},
-            checkbox2: {value: false},
-            checkbox3: {value: false},
-            checkbox4: {value: false},
-            checkbox5: {value: false},
-            checkbox6: {value: false},
-            checkbox7: {value: false},
-            checkbox8: {value: false},
-            rules: {
-
-            },
+            checkbox1_Power_On: {value: false},
+            // checkbox2_Power_Off: {value: false},
+            checkbox3_WAN_Up: {value: false},
+            checkbox4_WAN_Down: {value: false},
+            checkbox5_Cellular_Up: {value: false},
+            checkbox6_Cellular_Down: {value: false},
+            checkbox7_VPN_Up: {value: false},
+            checkbox8_VPN_Down: {value: false},
+ 
+            outputs: {value:1}, // 用于记录输出端口的数量
 
         },
         inputs:0,
         outputs:1,  // 初始输出数量为1
         // outputLabels: ["stdout","stderr","rc"],
+        
         icon: "bridge.svg",
         align: "left",
         
@@ -90,67 +94,32 @@
 
         // 打开编辑对话框时运行的代码
         oneditprepare: function() {
-            // 用于在打开编辑界面时设置复选框的初始状态
-            $("#node-input-checkbox1").prop('checked', this.checkbox1);
-            $("#node-input-checkbox2").prop('checked', this.checkbox2);
-            $("#node-input-checkbox3").prop('checked', this.checkbox3);
-            $("#node-input-checkbox4").prop('checked', this.checkbox4);
-            $("#node-input-checkbox5").prop('checked', this.checkbox5);
-            $("#node-input-checkbox6").prop('checked', this.checkbox6);
-            $("#node-input-checkbox7").prop('checked', this.checkbox7);
-            $("#node-input-checkbox8").prop('checked', this.checkbox8);
 
             function updateOutputs() {
-                var count = 0;
-                if ($("#node-input-checkbox1").is(":checked")) count++;
-                if ($("#node-input-checkbox2").is(":checked")) count++;
-                if ($("#node-input-checkbox3").is(":checked")) count++;
-                if ($("#node-input-checkbox4").is(":checked")) count++;
-                if ($("#node-input-checkbox5").is(":checked")) count++;
-                if ($("#node-input-checkbox6").is(":checked")) count++;
-                if ($("#node-input-checkbox7").is(":checked")) count++;
-                if ($("#node-input-checkbox8").is(":checked")) count++;
-
-                // 更新输出端口数量
-                $("#outputs").spinner('value', count);
+                $("#node-input-outputs").val(
+                    $("#node-input-checkbox1_Power_On").is(":checked") +
+                    // $("#node-input-checkbox2_Power_Off").is(":checked") +
+                    $("#node-input-checkbox3_WAN_Up").is(":checked") +
+                    $("#node-input-checkbox4_WAN_Down").is(":checked") +
+                    $("#node-input-checkbox5_Cellular_Up").is(":checked") +
+                    $("#node-input-checkbox6_Cellular_Down").is(":checked") +
+                    $("#node-input-checkbox7_VPN_Up").is(":checked") +
+                    $("#node-input-checkbox8_VPN_Down").is(":checked")
+                );
             }
 
-            $("#node-input-checkbox1").on("change", updateOutputs);
-            $("#node-input-checkbox2").on("change", updateOutputs);
-            $("#node-input-checkbox3").on("change", updateOutputs);
-            $("#node-input-checkbox4").on("change", updateOutputs);
-            $("#node-input-checkbox5").on("change", updateOutputs);
-            $("#node-input-checkbox6").on("change", updateOutputs);
-            $("#node-input-checkbox7").on("change", updateOutputs);
-            $("#node-input-checkbox8").on("change", updateOutputs);
+            $("#node-input-checkbox1_Power_On").on("change", updateOutputs);
+            // $("#node-input-checkbox2_Power_Off").on("change", updateOutputs);
+            $("#node-input-checkbox3_WAN_Up").on("change", updateOutputs);
+            $("#node-input-checkbox4_WAN_Down").on("change", updateOutputs);
+            $("#node-input-checkbox5_Cellular_Up").on("change", updateOutputs);
+            $("#node-input-checkbox6_Cellular_Down").on("change", updateOutputs);
+            $("#node-input-checkbox7_VPN_Up").on("change", updateOutputs);
+            $("#node-input-checkbox8_VPN_Down").on("change", updateOutputs);
 
 
             updateOutputs(); // 初始化时更新一次输出端口数量
         },
-
-        oneditsave: function() {
-            // 用于在保存编辑时获取复选框的状态
-            this.checkbox1 = $("#node-input-checkbox1").is(':checked');
-            this.checkbox2 = $("#node-input-checkbox2").is(':checked');
-            this.checkbox3 = $("#node-input-checkbox3").is(':checked');
-            this.checkbox4 = $("#node-input-checkbox4").is(':checked');
-            this.checkbox5 = $("#node-input-checkbox5").is(':checked');
-            this.checkbox6 = $("#node-input-checkbox6").is(':checked');
-            this.checkbox7 = $("#node-input-checkbox7").is(':checked');
-            this.checkbox8 = $("#node-input-checkbox8").is(':checked');
-
-            var count = 0;
-            if ($("#node-input-checkbox1").is(":checked")) count++;
-            if ($("#node-input-checkbox2").is(":checked")) count++;
-            if ($("#node-input-checkbox3").is(":checked")) count++;
-            if ($("#node-input-checkbox4").is(":checked")) count++;
-            if ($("#node-input-checkbox5").is(":checked")) count++;
-            if ($("#node-input-checkbox6").is(":checked")) count++;
-            if ($("#node-input-checkbox7").is(":checked")) count++;
-            if ($("#node-input-checkbox8").is(":checked")) count++;
-
-            this.outputs = count; // 保存勾选选项总数到输出端口数量
-        }
 
     });
 </script>
