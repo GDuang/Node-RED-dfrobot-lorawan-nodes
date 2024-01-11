@@ -18,7 +18,7 @@ module.exports = function(RED) {
 
 
         // mqtt配置连接参数
-        var client = mqtt.connect('mqtt://10.6.6.6:1883', {
+        var client = mqtt.connect('mqtt://127.0.0.1:1883', {
             clientId: "mqtt-custom-node-" + Math.random().toString(16).substr(2, 8),
             clean: true,
             connectTimeout: 4000,
